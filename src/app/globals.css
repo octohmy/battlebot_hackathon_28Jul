@@ -1,0 +1,217 @@
+@import "tailwindcss";
+
+/*
+ * WRECKED — brand system.
+ *
+ * Palette and type are lifted from battlebots.com itself: Barlow Condensed for
+ * the heavy condensed display face that matches the logo, Raleway for body.
+ * Red/blue split is the logo's two-tone "BB" mark.
+ *
+ * Design direction is deliberately *not* soft-gradient glassmorphism: this is
+ * industrial fight-card — hard edges, heavy rules, scanlines, stencil numerals,
+ * brutal contrast on near-black.
+ */
+
+@theme inline {
+  --color-bb-red: #e10600;
+  --color-bb-red-deep: #8f0400;
+  --color-bb-blue: #3aa0dc;
+  --color-bb-blue-deep: #14618f;
+  --color-bb-black: #07080a;
+  --color-bb-panel: #101317;
+  --color-bb-panel-2: #171b21;
+  --color-bb-steel: #2a3038;
+  --color-bb-chrome: #9aa4b0;
+  --color-bb-bone: #e8ecf1;
+  --color-bb-amber: #f5a623;
+
+  --font-display: var(--font-barlow), "Arial Narrow", sans-serif;
+  --font-body: var(--font-raleway), system-ui, sans-serif;
+}
+
+:root {
+  --background: #07080a;
+  --foreground: #e8ecf1;
+  /* Global damage level, 0→1. Driven by the duel; overlays read it. */
+  --damage: 0;
+}
+
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #e10600;
+  color: #fff;
+}
+
+/* ── Type ──────────────────────────────────────────────────────────────── */
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 0.88;
+}
+
+.stencil {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.6875rem;
+  color: #9aa4b0;
+}
+
+/* ── Surfaces ──────────────────────────────────────────────────────────── */
+
+/* Hard-edged panel with a hairline top highlight, like brushed plate. */
+.plate {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0) 40%),
+    #101317;
+  border: 1px solid #2a3038;
+}
+
+/* Diagonal hazard stripes — alternates, dropouts, warnings. */
+.hazard {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #f5a623 0 8px,
+    #07080a 8px 16px
+  );
+}
+
+/* Fine CRT scanlines. Subtle, so text stays legible on a projector. */
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.035) 0 1px,
+    transparent 1px 3px
+  );
+  mix-blend-mode: overlay;
+}
+
+/* Corner brackets, like a targeting reticle. */
+.brackets {
+  position: relative;
+}
+.brackets::before,
+.brackets::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #e10600;
+  pointer-events: none;
+}
+.brackets::before {
+  top: -1px;
+  left: -1px;
+  border-right: 0;
+  border-bottom: 0;
+}
+.brackets::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: 0;
+  border-top: 0;
+}
+
+/* ── Motion ────────────────────────────────────────────────────────────── */
+
+@keyframes shake {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  10% { transform: translate3d(-6px, 3px, 0) rotate(-0.4deg); }
+  25% { transform: translate3d(7px, -4px, 0) rotate(0.5deg); }
+  40% { transform: translate3d(-5px, -2px, 0) rotate(-0.3deg); }
+  60% { transform: translate3d(4px, 5px, 0) rotate(0.35deg); }
+  80% { transform: translate3d(-3px, -3px, 0) rotate(-0.2deg); }
+}
+.shake {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  42% { opacity: 1; }
+  43% { opacity: 0.25; }
+  45% { opacity: 1; }
+  62% { opacity: 0.6; }
+  64% { opacity: 1; }
+}
+.flicker {
+  animation: flicker 4.5s infinite steps(1, end);
+}
+
+@keyframes sweep {
+  from { transform: translateX(-120%) skewX(-20deg); }
+  to { transform: translateX(220%) skewX(-20deg); }
+}
+/* Holographic sheen crossing a card. */
+.sheen {
+  position: relative;
+  overflow: hidden;
+}
+.sheen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.16),
+    transparent
+  );
+  animation: sweep 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shake,
+  .flicker,
+  .sheen::before {
+    animation: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────────────────── */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2a3038 transparent;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a3038;
+  border: 2px solid #07080a;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #e10600;
+}

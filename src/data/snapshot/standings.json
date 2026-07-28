@@ -1,0 +1,385 @@
+{
+  "season": "Pro League 2026",
+  "groups": [
+    {
+      "group": "A",
+      "teams": [
+        {
+          "rank": 1,
+          "name": "Manta",
+          "slug": "manta",
+          "group": "A",
+          "totalPoints": 81,
+          "wins": 3,
+          "losses": 0,
+          "koWins": 3,
+          "jdWins": 0,
+          "advancesToPlayoffs": true,
+          "tiebreaker": null,
+          "droppedOut": false
+        },
+        {
+          "rank": 2,
+          "name": "TerrorTops",
+          "slug": "terrortops",
+          "group": "A",
+          "totalPoints": 54,
+          "wins": 2,
+          "losses": 1,
+          "koWins": 2,
+          "jdWins": 0,
+          "advancesToPlayoffs": true,
+          "tiebreaker": null,
+          "droppedOut": false
+        },
+        {
+          "rank": 3,
+          "name": "Skorpios",
+          "slug": "skorpios",
+          "group": "A",
+          "totalPoints": 27,
+          "wins": 1,
+          "losses": 2,
+          "koWins": 1,
+          "jdWins": 0,
+          "advancesToPlayoffs": false,
+          "tiebreaker": null,
+          "droppedOut": false
+        },
+        {
+          "rank": 4,
+          "name": "Valkyrie",
+          "slug": "valkyrie",
+          "group": "A",
+          "totalPoints": 0,
+          "wins": 0,
+          "losses": 3,
+          "koWins": 0,
+          "jdWins": 0,
+          "advancesToPlayoffs": false,
+          "tiebreaker": null,
+          "droppedOut": false
+        }
+      ]
+    },
+    {
+      "group": "B",
+      "teams": [
+        {
+          "rank": 1,
+          "name": "MadCatter",
+          "slug": "madcatter",
+          "group": "B",
+          "totalPoints": 70,
+          "wins": 3,
+          "losses": 0,
+          "koWins": 2,
+          "jdWins": 1,
+          "advancesToPlayoffs": true,
+          "tiebreaker": null,
+          "droppedOut": false
+        },
+        {
+          "rank": 2,
+          "name": "Calypso",
+          "slug": "calypso",
+          "group": "B",
+          "totalPoints": 54,
+          "wins": 2,
+          "losses": 0,
+          "koWins": 2,
+          "jdWins": 0,
+          "advancesToPlayoffs": false,
+          "tiebreaker": null,
+          "droppedOut": false
+        },
+        {
+          "rank": 3,
+          "name": "Magnitude",
+          "slug": "magnitude",
+          "group": "B",
+          "totalPoints": 38,
+          "wins": 1,
+          "losses": 2,
+          "koWins": 1,
+          "jdWins": 0,
+          "advancesToPlayoffs": false,
+          "tiebreaker": null,
+          "droppedOut": false
+        },
+        {
+          "rank": 4,
+          "name": "Disarray",
+          "slug": "disarray",
+          "group": "B",
+          "totalPoints": 0,
+          "wins": 0,
+          "losses": 3,
+          "koWins": 0,
+          "jdWins": 0,
+          "advancesToPlayoffs": false,
+          "tiebreaker": null,
+          "droppedOut": false
+        },
+        {
+          "rank": 5,
+          "name": "Tombstone",
+          "slug": "tombstone",
+          "group": "B",
+          "totalPoints": 0,
+          "wins": 0,
+          "losses": 1,
+          "koWins": 0,
+          "jdWins": 0,
+          "advancesToPlayoffs": false,
+          "tiebreaker": null,
+          "droppedOut": true
+        }
+      ]
+    },
+    {
+      "group": "C",
+      "teams": [
+        {
+          "rank": 1,
+          "name": "The Twins",
+          "slug": "the-twins",
+          "group": "C",
+          "totalPoints": 67,
+          "wins": 2,
+          "losses": 1,
+          "koWins": 2,
+          "jdWins": 0,
+          "advancesToPlayoffs": true,
+          "tiebreaker": null,
+          "droppedOut": false
+        },
+        {
+          "rank": 2,
+          "name": "Copperhead",
+          "slug": "copperhead",
+          "group": "C",
+          "totalPoints": 54,
+          "wins": 2,
+          "losses": 1,
+          "koWins": 1,
+          "jdWins": 1,
+          "advancesToPlayoffs": false,
+          "tiebreaker": null,
+          "droppedOut": false
+        },
+        {
+          "rank": 3,
+          "name": "Cobalt",
+          "slug": "cobalt",
+          "group": "C",
+          "totalPoints": 38,
+          "wins": 2,
+          "losses": 1,
+          "koWins": 0,
+          "jdWins": 2,
+          "advancesToPlayoffs": false,
+          "tiebreaker": null,
+          "droppedOut": false
+        },
+        {
+          "rank": 4,
+          "name": "Jackpot",
+          "slug": "jackpot",
+          "group": "C",
+          "totalPoints": 3,
+          "wins": 0,
+          "losses": 3,
+          "koWins": 0,
+          "jdWins": 0,
+          "advancesToPlayoffs": false,
+          "tiebreaker": null,
+          "droppedOut": false
+        }
+      ]
+    },
+    {
+      "group": "D",
+      "teams": [
+        {
+          "rank": 1,
+          "name": "Golden Fury",
+          "slug": "golden-fury",
+          "group": "D",
+          "totalPoints": 68,
+          "wins": 3,
+          "losses": 0,
+          "koWins": 2,
+          "jdWins": 1,
+          "advancesToPlayoffs": true,
+          "tiebreaker": null,
+          "droppedOut": false
+        },
+        {
+          "rank": 2,
+          "name": "Malice",
+          "slug": "malice",
+          "group": "D",
+          "totalPoints": 54,
+          "wins": 2,
+          "losses": 1,
+          "koWins": 2,
+          "jdWins": 0,
+          "advancesToPlayoffs": false,
+          "tiebreaker": null,
+          "droppedOut": false
+        },
+        {
+          "rank": 3,
+          "name": "End Game",
+          "slug": "end-game",
+          "group": "D",
+          "totalPoints": 15,
+          "wins": 1,
+          "losses": 2,
+          "koWins": 0,
+          "jdWins": 1,
+          "advancesToPlayoffs": false,
+          "tiebreaker": null,
+          "droppedOut": false
+        },
+        {
+          "rank": 4,
+          "name": "Death Roll",
+          "slug": "death-roll",
+          "group": "D",
+          "totalPoints": 25,
+          "wins": 0,
+          "losses": 3,
+          "koWins": 0,
+          "jdWins": 0,
+          "advancesToPlayoffs": false,
+          "tiebreaker": null,
+          "droppedOut": false
+        }
+      ]
+    },
+    {
+      "group": "E",
+      "teams": [
+        {
+          "rank": 1,
+          "name": "Minotaur",
+          "slug": "minotaur",
+          "group": "E",
+          "totalPoints": 69,
+          "wins": 3,
+          "losses": 0,
+          "koWins": 2,
+          "jdWins": 1,
+          "advancesToPlayoffs": true,
+          "tiebreaker": null,
+          "droppedOut": false
+        },
+        {
+          "rank": 2,
+          "name": "Bloodsport",
+          "slug": "bloodsport",
+          "group": "E",
+          "totalPoints": 54,
+          "wins": 2,
+          "losses": 1,
+          "koWins": 2,
+          "jdWins": 0,
+          "advancesToPlayoffs": false,
+          "tiebreaker": null,
+          "droppedOut": false
+        },
+        {
+          "rank": 3,
+          "name": "HUGE",
+          "slug": "huge",
+          "group": "E",
+          "totalPoints": 39,
+          "wins": 1,
+          "losses": 2,
+          "koWins": 1,
+          "jdWins": 0,
+          "advancesToPlayoffs": false,
+          "tiebreaker": null,
+          "droppedOut": false
+        },
+        {
+          "rank": 4,
+          "name": "HyperShock",
+          "slug": "hypershock",
+          "group": "E",
+          "totalPoints": 0,
+          "wins": 0,
+          "losses": 3,
+          "koWins": 0,
+          "jdWins": 0,
+          "advancesToPlayoffs": false,
+          "tiebreaker": null,
+          "droppedOut": false
+        }
+      ]
+    },
+    {
+      "group": "F",
+      "teams": [
+        {
+          "rank": 1,
+          "name": "Orbitron",
+          "slug": "orbitron",
+          "group": "F",
+          "totalPoints": 54,
+          "wins": 2,
+          "losses": 1,
+          "koWins": 2,
+          "jdWins": 0,
+          "advancesToPlayoffs": true,
+          "tiebreaker": null,
+          "droppedOut": false
+        },
+        {
+          "rank": 2,
+          "name": "Witch Doctor",
+          "slug": "witch-doctor",
+          "group": "F",
+          "totalPoints": 54,
+          "wins": 2,
+          "losses": 1,
+          "koWins": 2,
+          "jdWins": 0,
+          "advancesToPlayoffs": true,
+          "tiebreaker": "KO Score",
+          "droppedOut": false
+        },
+        {
+          "rank": 3,
+          "name": "Ribbot",
+          "slug": "ribbot",
+          "group": "F",
+          "totalPoints": 27,
+          "wins": 1,
+          "losses": 2,
+          "koWins": 1,
+          "jdWins": 0,
+          "advancesToPlayoffs": false,
+          "tiebreaker": null,
+          "droppedOut": false
+        },
+        {
+          "rank": 4,
+          "name": "Switchback",
+          "slug": "switchback",
+          "group": "F",
+          "totalPoints": 27,
+          "wins": 1,
+          "losses": 2,
+          "koWins": 1,
+          "jdWins": 0,
+          "advancesToPlayoffs": false,
+          "tiebreaker": "KO Score",
+          "droppedOut": false
+        }
+      ]
+    }
+  ]
+}

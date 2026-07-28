@@ -1,0 +1,358 @@
+{
+  "voice": "QOPygVUhJmHWpZyjcBdf",
+  "generatedAt": "2026-07-28T18:31:50.512Z",
+  "names": {
+    "manta": {
+      "text": "Manta",
+      "file": "/audio/announcer/names/manta.mp3"
+    },
+    "terrortops": {
+      "text": "TerrorTops",
+      "file": "/audio/announcer/names/terrortops.mp3"
+    },
+    "skorpios": {
+      "text": "Skorpios",
+      "file": "/audio/announcer/names/skorpios.mp3"
+    },
+    "valkyrie": {
+      "text": "Valkyrie",
+      "file": "/audio/announcer/names/valkyrie.mp3"
+    },
+    "madcatter": {
+      "text": "MadCatter",
+      "file": "/audio/announcer/names/madcatter.mp3"
+    },
+    "magnitude": {
+      "text": "Magnitude",
+      "file": "/audio/announcer/names/magnitude.mp3"
+    },
+    "disarray": {
+      "text": "Disarray",
+      "file": "/audio/announcer/names/disarray.mp3"
+    },
+    "tombstone": {
+      "text": "Tombstone",
+      "file": "/audio/announcer/names/tombstone.mp3"
+    },
+    "the-twins": {
+      "text": "The Twins",
+      "file": "/audio/announcer/names/the-twins.mp3"
+    },
+    "copperhead": {
+      "text": "Copperhead",
+      "file": "/audio/announcer/names/copperhead.mp3"
+    },
+    "cobalt": {
+      "text": "Cobalt",
+      "file": "/audio/announcer/names/cobalt.mp3"
+    },
+    "jackpot": {
+      "text": "Jackpot",
+      "file": "/audio/announcer/names/jackpot.mp3"
+    },
+    "golden-fury": {
+      "text": "Golden Fury",
+      "file": "/audio/announcer/names/golden-fury.mp3"
+    },
+    "malice": {
+      "text": "Malice",
+      "file": "/audio/announcer/names/malice.mp3"
+    },
+    "end-game": {
+      "text": "End Game",
+      "file": "/audio/announcer/names/end-game.mp3"
+    },
+    "death-roll": {
+      "text": "Death Roll",
+      "file": "/audio/announcer/names/death-roll.mp3"
+    },
+    "minotaur": {
+      "text": "Minotaur",
+      "file": "/audio/announcer/names/minotaur.mp3"
+    },
+    "bloodsport": {
+      "text": "Bloodsport",
+      "file": "/audio/announcer/names/bloodsport.mp3"
+    },
+    "huge": {
+      "text": "HUGE",
+      "file": "/audio/announcer/names/huge.mp3"
+    },
+    "hypershock": {
+      "text": "HyperShock",
+      "file": "/audio/announcer/names/hypershock.mp3"
+    },
+    "orbitron": {
+      "text": "Orbitron",
+      "file": "/audio/announcer/names/orbitron.mp3"
+    },
+    "witch-doctor": {
+      "text": "Witch Doctor",
+      "file": "/audio/announcer/names/witch-doctor.mp3"
+    },
+    "ribbot": {
+      "text": "Ribbot",
+      "file": "/audio/announcer/names/ribbot.mp3"
+    },
+    "switchback": {
+      "text": "Switchback",
+      "file": "/audio/announcer/names/switchback.mp3"
+    }
+  },
+  "nuggets": {
+    "manta_0": {
+      "text": "three and oh in group A with eighty-one points",
+      "file": "/audio/announcer/nuggets/manta_0.mp3"
+    },
+    "manta_1": {
+      "text": "twelve career victories and an eighty-five point seven percent win rate",
+      "file": "/audio/announcer/nuggets/manta_1.mp3"
+    },
+    "terrortops_0": {
+      "text": "holds ten career victories inside the battle box",
+      "file": "/audio/announcer/nuggets/terrortops_0.mp3"
+    },
+    "terrortops_1": {
+      "text": "secured eight devastating knockout wins in the arena",
+      "file": "/audio/announcer/nuggets/terrortops_1.mp3"
+    },
+    "skorpios_0": {
+      "text": "accumulated twenty seven career victories in the battle box",
+      "file": "/audio/announcer/nuggets/skorpios_0.mp3"
+    },
+    "skorpios_1": {
+      "text": "holds forty four total fights on its competitive record",
+      "file": "/audio/announcer/nuggets/skorpios_1.mp3"
+    },
+    "valkyrie_0": {
+      "text": "enters the arena with twenty two career victories",
+      "file": "/audio/announcer/nuggets/valkyrie_0.mp3"
+    },
+    "valkyrie_1": {
+      "text": "brings a total of thirty nine career fights",
+      "file": "/audio/announcer/nuggets/valkyrie_1.mp3"
+    },
+    "madcatter_0": {
+      "text": "holds twenty career wins inside the battlebox",
+      "file": "/audio/announcer/nuggets/madcatter_0.mp3"
+    },
+    "madcatter_1": {
+      "text": "charges in with three wins and zero losses",
+      "file": "/audio/announcer/nuggets/madcatter_1.mp3"
+    },
+    "magnitude_0": {
+      "text": "Delivered six knockout victories inside the deadly battle box",
+      "file": "/audio/announcer/nuggets/magnitude_0.mp3"
+    },
+    "magnitude_1": {
+      "text": "Recorded a fastest knockout win in sixteen seconds",
+      "file": "/audio/announcer/nuggets/magnitude_1.mp3"
+    },
+    "disarray_0": {
+      "text": "Carrying four wins against thirteen career losses into the arena",
+      "file": "/audio/announcer/nuggets/disarray_0.mp3"
+    },
+    "disarray_1": {
+      "text": "Seventeen total battles logged on the historical fight card",
+      "file": "/audio/announcer/nuggets/disarray_1.mp3"
+    },
+    "tombstone_0": {
+      "text": "has delivered seventeen knockout victories over thirty five total fights",
+      "file": "/audio/announcer/nuggets/tombstone_0.mp3"
+    },
+    "tombstone_1": {
+      "text": "holds twenty two career wins against thirteen career losses",
+      "file": "/audio/announcer/nuggets/tombstone_1.mp3"
+    },
+    "the-twins_0": {
+      "text": "secured three knockout victories in the arena",
+      "file": "/audio/announcer/nuggets/the-twins_0.mp3"
+    },
+    "the-twins_1": {
+      "text": "delivered a fastest knockout win in thirty one seconds",
+      "file": "/audio/announcer/nuggets/the-twins_1.mp3"
+    },
+    "copperhead_0": {
+      "text": "Holding eighteen career wins inside the deadly battle box",
+      "file": "/audio/announcer/nuggets/copperhead_0.mp3"
+    },
+    "copperhead_1": {
+      "text": "Forty-four percent knockout power delivered across twenty-seven fights",
+      "file": "/audio/announcer/nuggets/copperhead_1.mp3"
+    },
+    "cobalt_0": {
+      "text": "has nineteen career wins and eleven career losses",
+      "file": "/audio/announcer/nuggets/cobalt_0.mp3"
+    },
+    "cobalt_1": {
+      "text": "delivered fifteen knockout victories in thirty total fights",
+      "file": "/audio/announcer/nuggets/cobalt_1.mp3"
+    },
+    "jackpot_0": {
+      "text": "holds nineteen career wins out of thirty-six total fights",
+      "file": "/audio/announcer/nuggets/jackpot_0.mp3"
+    },
+    "jackpot_1": {
+      "text": "delivered twelve knockout victories inside the battlebox",
+      "file": "/audio/announcer/nuggets/jackpot_1.mp3"
+    },
+    "golden-fury_0": {
+      "text": "Brought three wins and zero losses into group D",
+      "file": "/audio/announcer/nuggets/golden-fury_0.mp3"
+    },
+    "golden-fury_1": {
+      "text": "Clocked a fastest knockout win of forty-one seconds",
+      "file": "/audio/announcer/nuggets/golden-fury_1.mp3"
+    },
+    "malice_0": {
+      "text": "Holds sixteen career wins and thirteen career losses",
+      "file": "/audio/announcer/nuggets/malice_0.mp3"
+    },
+    "malice_1": {
+      "text": "Seventy five seconds is its fastest knockout victory",
+      "file": "/audio/announcer/nuggets/malice_1.mp3"
+    },
+    "end-game_0": {
+      "text": "Holds twenty nine career victories in forty one total fights",
+      "file": "/audio/announcer/nuggets/end-game_0.mp3"
+    },
+    "end-game_1": {
+      "text": "Delivered twenty three knockout wins inside the battle box",
+      "file": "/audio/announcer/nuggets/end-game_1.mp3"
+    },
+    "death-roll_0": {
+      "text": "competed in group D with twenty five points",
+      "file": "/audio/announcer/nuggets/death-roll_0.mp3"
+    },
+    "death-roll_1": {
+      "text": "finished ranked fourth in group D",
+      "file": "/audio/announcer/nuggets/death-roll_1.mp3"
+    },
+    "minotaur_0": {
+      "text": "thirty five career wins inside the deadly battlebox",
+      "file": "/audio/announcer/nuggets/minotaur_0.mp3"
+    },
+    "minotaur_1": {
+      "text": "twenty four opponents left in total knockout ruins",
+      "file": "/audio/announcer/nuggets/minotaur_1.mp3"
+    },
+    "bloodsport_0": {
+      "text": "holds twenty three career victories in forty total fights",
+      "file": "/audio/announcer/nuggets/bloodsport_0.mp3"
+    },
+    "bloodsport_1": {
+      "text": "delivered eighteen knockout wins across the combat arena",
+      "file": "/audio/announcer/nuggets/bloodsport_1.mp3"
+    },
+    "huge_0": {
+      "text": "Twenty-one career wins inside the glowing battle box",
+      "file": "/audio/announcer/nuggets/huge_0.mp3"
+    },
+    "huge_1": {
+      "text": "Forty-four seconds stands as its fastest knockout victory",
+      "file": "/audio/announcer/nuggets/huge_1.mp3"
+    },
+    "hypershock_0": {
+      "text": "Brings twenty eight career wins into the battlebox tonight",
+      "file": "/audio/announcer/nuggets/hypershock_0.mp3"
+    },
+    "hypershock_1": {
+      "text": "Delivered twenty three knockout victories throughout a legendary career",
+      "file": "/audio/announcer/nuggets/hypershock_1.mp3"
+    },
+    "orbitron_0": {
+      "text": "holds a career record of seven and seven",
+      "file": "/audio/announcer/nuggets/orbitron_0.mp3"
+    },
+    "orbitron_1": {
+      "text": "secured seven knockout victories inside the box",
+      "file": "/audio/announcer/nuggets/orbitron_1.mp3"
+    },
+    "witch-doctor_0": {
+      "text": "carries thirty five career victories into the battlebox today",
+      "file": "/audio/announcer/nuggets/witch-doctor_0.mp3"
+    },
+    "witch-doctor_1": {
+      "text": "owns twenty six devastating knockout wins in professional competition",
+      "file": "/audio/announcer/nuggets/witch-doctor_1.mp3"
+    },
+    "ribbot_0": {
+      "text": "twenty career wins and fifteen career losses",
+      "file": "/audio/announcer/nuggets/ribbot_0.mp3"
+    },
+    "ribbot_1": {
+      "text": "nineteen knockout victories delivered inside the arena",
+      "file": "/audio/announcer/nuggets/ribbot_1.mp3"
+    },
+    "switchback_0": {
+      "text": "holds nine career wins with twenty total fights",
+      "file": "/audio/announcer/nuggets/switchback_0.mp3"
+    },
+    "switchback_1": {
+      "text": "delivered seven knockout victories in the arena",
+      "file": "/audio/announcer/nuggets/switchback_1.mp3"
+    }
+  },
+  "connectives": {
+    "intro_1": {
+      "text": "Ladies and gentlemen, welcome to the BattleBox!",
+      "file": "/audio/announcer/connectives/intro_1.mp3"
+    },
+    "intro_2": {
+      "text": "Our next match is about to begin!",
+      "file": "/audio/announcer/connectives/intro_2.mp3"
+    },
+    "intro_3": {
+      "text": "This is the one you have been waiting for!",
+      "file": "/audio/announcer/connectives/intro_3.mp3"
+    },
+    "in_red": {
+      "text": "In the red square,",
+      "file": "/audio/announcer/connectives/in_red.mp3"
+    },
+    "in_blue": {
+      "text": "And in the blue square,",
+      "file": "/audio/announcer/connectives/in_blue.mp3"
+    },
+    "versus": {
+      "text": "versus",
+      "file": "/audio/announcer/connectives/versus.mp3"
+    },
+    "fight": {
+      "text": "Three! Two! One! Activate!",
+      "file": "/audio/announcer/connectives/fight.mp3"
+    },
+    "ko": {
+      "text": "Knockout! It is all over!",
+      "file": "/audio/announcer/connectives/ko.mp3"
+    },
+    "jd": {
+      "text": "We are going to the judges!",
+      "file": "/audio/announcer/connectives/jd.mp3"
+    },
+    "upset": {
+      "text": "What an upset!",
+      "file": "/audio/announcer/connectives/upset.mp3"
+    },
+    "brutal": {
+      "text": "Oh, that is brutal!",
+      "file": "/audio/announcer/connectives/brutal.mp3"
+    },
+    "crowd": {
+      "text": "Listen to this crowd!",
+      "file": "/audio/announcer/connectives/crowd.mp3"
+    },
+    "winner": {
+      "text": "Your winner!",
+      "file": "/audio/announcer/connectives/winner.mp3"
+    },
+    "close_1": {
+      "text": "What a fight!",
+      "file": "/audio/announcer/connectives/close_1.mp3"
+    },
+    "destruction": {
+      "text": "That is total destruction!",
+      "file": "/audio/announcer/connectives/destruction.mp3"
+    }
+  }
+}

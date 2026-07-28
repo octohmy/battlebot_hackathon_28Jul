@@ -1,0 +1,245 @@
+[
+ {
+  "name": "Bloodsport",
+  "pageSlug": "bloodsport-wcvii",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/bloodsport-right.png",
+  "country": null,
+  "teamName": "Bots \u2018n\u2019 Stuff Robotics",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/bloodsport-team-2026-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "Cobalt",
+  "pageSlug": "cobalt-wcvii",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/cobalt-right.png",
+  "country": "us, gb",
+  "teamName": "Robotic Death Company",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/cobalt-team-2026-1-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "Copperhead",
+  "pageSlug": "copperhead-wcvii",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/copperhead-right.png",
+  "country": null,
+  "teamName": "Caustic Creations",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/copperhead-team-2026-1-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "Death Roll",
+  "pageSlug": "deathroll-wcvii",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/deathroll-right.png",
+  "country": "au",
+  "teamName": "Team DeathRoll",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/deathroll-team-2026-1-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "Disarray",
+  "pageSlug": "disarray-fo",
+  "image": "https://battlebots.com/wp-content/uploads/2026/05/disarray-proleage.png",
+  "country": null,
+  "teamName": "Wildcat Robotics",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/disarray-team-2026-1-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "End Game",
+  "pageSlug": "end-game-wcvii",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/end-game-right.png",
+  "country": "nz",
+  "teamName": "End Game",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/endgame-team-2026-1-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "Golden Fury",
+  "pageSlug": "golden-fury",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/golden-fury-right.png",
+  "country": "in",
+  "teamName": "PY ROBOTICSZ INDIA",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/golden-fury-team-2026-1-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "Huge",
+  "pageSlug": "huge-wcvii",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/huge-right.png",
+  "country": null,
+  "teamName": "Team HUGE",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/huge-team-2026-1-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "HyperShock",
+  "pageSlug": "hypershock-wcvii",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/hypershock-right.png",
+  "country": null,
+  "teamName": "Team HyperShock",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/hypershock-team-2026-1-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "Jackpot",
+  "pageSlug": "jackpot-wcvii",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/jackpot-right.png",
+  "country": null,
+  "teamName": "VCR (Vegas Combat Robotics)",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/jackpot-team-2026-1-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "MadCatter",
+  "pageSlug": "madcatter-wcvii",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/madcatter-right.png",
+  "country": null,
+  "teamName": "Bad Kitty",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/madcatter-team-2026-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "Magnitude",
+  "pageSlug": "magnitude-fo",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/magnitude-right.png",
+  "country": null,
+  "teamName": "Team Magnitude",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/magnitude-team-2026-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "Malice",
+  "pageSlug": "malice-wcvii",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/malice-right.png",
+  "country": null,
+  "teamName": "Team Malice",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/malice-team-2026-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "Manta",
+  "pageSlug": "manta-fo",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/manta-left.png",
+  "country": null,
+  "teamName": "Team Tanto",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/manta-team-2026-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "Minotaur",
+  "pageSlug": "minotaur-wcvii",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/minotaur-right.png",
+  "country": "br",
+  "teamName": "RioBotz",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/minotaur-team-2026-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "Orbitron",
+  "pageSlug": "orbitron-fo",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/orbitron-left.png",
+  "country": "ca",
+  "teamName": "Orbitron",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/orbitron-team-2026-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "Ribbot",
+  "pageSlug": "ribbot-wcvii",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/ribbot-right.png",
+  "country": null,
+  "teamName": "Team Ribbot",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/ribbot-team-2026-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "Skorpios",
+  "pageSlug": "skorpios-wcvii",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/skorpios-right.png",
+  "country": null,
+  "teamName": "Bot Bash Party Crew",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/skorpios-team-2026-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "Switchback",
+  "pageSlug": "switchback-wcvii",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/switchback-right.png",
+  "country": null,
+  "teamName": "Midnight Invention",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/switchback-team-2026-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "TerrorTops",
+  "pageSlug": "terrortops-wcvii",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/terrortops-right.png",
+  "country": null,
+  "teamName": "Team TerrorTops",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/terrortops-team-2026-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "The Twins",
+  "pageSlug": "the-twins",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/the-twins-left.png",
+  "country": null,
+  "teamName": "Seems Reasonable",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/theTwins-team-2026-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "Tombstone",
+  "pageSlug": "tombstone-2021",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/tombstone-right.png",
+  "country": null,
+  "teamName": "Hardcore Robotics",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/tombstone-team-2026-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "Valkyrie",
+  "pageSlug": "valkyrie-wcvii",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/valkyrie-right.png",
+  "country": null,
+  "teamName": "Team VALKYRIE / Questionable Designs",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/valkyrie-team-2026-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "Witch Doctor",
+  "pageSlug": "witch-doctor-wcvii",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/witch-doctor-right.png",
+  "country": null,
+  "teamName": "Team Witch Doctor",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/witch-doctor-team-2026-scaled.png",
+  "badge": null
+ },
+ {
+  "name": "Banshee",
+  "pageSlug": "banshee-wcvii",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/banshee-right.png",
+  "country": null,
+  "teamName": "Team Small Robots",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/banshee-team-2026-scaled.png",
+  "badge": "ALTERNATE"
+ },
+ {
+  "name": "Calypso",
+  "pageSlug": "calypso",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/calypso-right.png",
+  "country": null,
+  "teamName": "Team Horizon",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/calypso-team-2026-scaled.png",
+  "badge": "ALTERNATE"
+ },
+ {
+  "name": "Nemesis",
+  "pageSlug": "nemesis",
+  "image": "https://battlebots.com/wp-content/uploads/2026/06/nemisis-right.png",
+  "country": null,
+  "teamName": "USC Advanced Robotic Combat",
+  "teamPhoto": "https://battlebots.com/wp-content/uploads/2026/06/nemisis-team-2026-scaled.png",
+  "badge": "ALTERNATE"
+ }
+]

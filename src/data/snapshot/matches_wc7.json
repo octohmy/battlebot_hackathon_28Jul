@@ -1,0 +1,1602 @@
+[
+ {
+  "bot": "BANSHEE",
+  "opponent": "SWITCHBACK",
+  "episode": 702,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "BANSHEE",
+  "opponent": "VALKYRIE",
+  "episode": 706,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "BANSHEE",
+  "opponent": "EMULSIFIER",
+  "episode": 710,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 110
+ },
+ {
+  "bot": "BANSHEE",
+  "opponent": "BLIP",
+  "episode": 715,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "BETA",
+  "opponent": "KRAKEN",
+  "episode": 704,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "BETA",
+  "opponent": "SHATTER!",
+  "episode": 708,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "BETA",
+  "opponent": "BLACK DRAGON",
+  "episode": 711,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 70
+ },
+ {
+  "bot": "BETA",
+  "opponent": "BLOODSPORT",
+  "episode": 714,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "BIG DILL",
+  "opponent": "HIJINX",
+  "episode": 702,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 112
+ },
+ {
+  "bot": "BIG DILL",
+  "opponent": "SKORPIOS",
+  "episode": 706,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 86
+ },
+ {
+  "bot": "BIG DILL",
+  "opponent": "MADCATTER",
+  "episode": 709,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "BIG DILL",
+  "opponent": "FREE SHIPPING",
+  "episode": 712,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 129
+ },
+ {
+  "bot": "BLACK DRAGON",
+  "opponent": "MONSOON",
+  "episode": 704,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 125
+ },
+ {
+  "bot": "BLACK DRAGON",
+  "opponent": "QUANTUM",
+  "episode": 708,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "BLACK DRAGON",
+  "opponent": "BETA",
+  "episode": 711,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 70
+ },
+ {
+  "bot": "BLACK DRAGON",
+  "opponent": "RIPTIDE",
+  "episode": 714,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 61
+ },
+ {
+  "bot": "BLIP",
+  "opponent": "END GAME",
+  "episode": 702,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "BLIP",
+  "opponent": "HUGE",
+  "episode": 705,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "BLIP",
+  "opponent": "TANTRUM",
+  "episode": 708,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "BLIP",
+  "opponent": "BANSHEE",
+  "episode": 715,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "BLOODSPORT",
+  "opponent": "COPPERHEAD",
+  "episode": 703,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 35
+ },
+ {
+  "bot": "BLOODSPORT",
+  "opponent": "GIGABYTE",
+  "episode": 707,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 122
+ },
+ {
+  "bot": "BLOODSPORT",
+  "opponent": "ROTATOR",
+  "episode": 711,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 107
+ },
+ {
+  "bot": "BLOODSPORT",
+  "opponent": "BETA",
+  "episode": 714,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "CAPT. SHREDERATOR",
+  "opponent": "QUANTUM",
+  "episode": 701,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 158
+ },
+ {
+  "bot": "CAPT. SHREDERATOR",
+  "opponent": "HIJINX",
+  "episode": 706,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 142
+ },
+ {
+  "bot": "CAPT. SHREDERATOR",
+  "opponent": "RIPTIDE",
+  "episode": 710,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 69
+ },
+ {
+  "bot": "CAPT. SHREDERATOR",
+  "opponent": "JACKPOT",
+  "episode": 711,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "CLAW VIPER",
+  "opponent": "OMINOUS",
+  "episode": 703,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 166
+ },
+ {
+  "bot": "CLAW VIPER",
+  "opponent": "RIBBOT",
+  "episode": 705,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "CLAW VIPER",
+  "opponent": "OVERHAUL",
+  "episode": 707,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "CLAW VIPER",
+  "opponent": "HYPERSHOCK",
+  "episode": 712,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 79
+ },
+ {
+  "bot": "COBALT",
+  "opponent": "DEATH ROLL",
+  "episode": 703,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 87
+ },
+ {
+  "bot": "COBALT",
+  "opponent": "MINOTAUR",
+  "episode": 707,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 174
+ },
+ {
+  "bot": "COBALT",
+  "opponent": "OVERHAUL",
+  "episode": 711,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 146
+ },
+ {
+  "bot": "COBALT",
+  "opponent": "LUCKY",
+  "episode": 715,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 39
+ },
+ {
+  "bot": "COPPERHEAD",
+  "opponent": "BLOODSPORT",
+  "episode": 703,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 35
+ },
+ {
+  "bot": "COPPERHEAD",
+  "opponent": "TRITON",
+  "episode": 707,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "COPPERHEAD",
+  "opponent": "KRAKEN",
+  "episode": 710,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 86
+ },
+ {
+  "bot": "COPPERHEAD",
+  "opponent": "RIPPERONI",
+  "episode": 713,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 44
+ },
+ {
+  "bot": "DEATH ROLL",
+  "opponent": "COBALT",
+  "episode": 703,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 87
+ },
+ {
+  "bot": "DEATH ROLL",
+  "opponent": "SWITCHBACK",
+  "episode": 706,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 104
+ },
+ {
+  "bot": "DEATH ROLL",
+  "opponent": "MAMMOTH",
+  "episode": 710,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 48
+ },
+ {
+  "bot": "DEATH ROLL",
+  "opponent": "MONSOON",
+  "episode": 715,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 52
+ },
+ {
+  "bot": "EMULSIFIER",
+  "opponent": "FUSION",
+  "episode": 702,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "EMULSIFIER",
+  "opponent": "MALICE",
+  "episode": 704,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 112
+ },
+ {
+  "bot": "EMULSIFIER",
+  "opponent": "BANSHEE",
+  "episode": 710,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 110
+ },
+ {
+  "bot": "EMULSIFIER",
+  "opponent": "QUANTUM",
+  "episode": 713,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "END GAME",
+  "opponent": "BLIP",
+  "episode": 702,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "END GAME",
+  "opponent": "RIPPERONI",
+  "episode": 706,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 97
+ },
+ {
+  "bot": "END GAME",
+  "opponent": "HYPERSHOCK",
+  "episode": 709,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 157
+ },
+ {
+  "bot": "END GAME",
+  "opponent": "GIGABYTE",
+  "episode": 713,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 43
+ },
+ {
+  "bot": "FREE SHIPPING",
+  "opponent": "GIGABYTE",
+  "episode": 701,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 121
+ },
+ {
+  "bot": "FREE SHIPPING",
+  "opponent": "MINOTAUR",
+  "episode": 705,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 121
+ },
+ {
+  "bot": "FREE SHIPPING",
+  "opponent": "HYDRA",
+  "episode": 708,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "FREE SHIPPING",
+  "opponent": "BIG DILL",
+  "episode": 712,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 129
+ },
+ {
+  "bot": "FUSION",
+  "opponent": "EMULSIFIER",
+  "episode": 702,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "FUSION",
+  "opponent": "WITCH DOCTOR",
+  "episode": 705,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "FUSION",
+  "opponent": "HUGE",
+  "episode": 708,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 44
+ },
+ {
+  "bot": "FUSION",
+  "opponent": "ROTATOR",
+  "episode": 713,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 113
+ },
+ {
+  "bot": "GIGABYTE",
+  "opponent": "FREE SHIPPING",
+  "episode": 701,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 121
+ },
+ {
+  "bot": "GIGABYTE",
+  "opponent": "BLOODSPORT",
+  "episode": 707,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 122
+ },
+ {
+  "bot": "GIGABYTE",
+  "opponent": "STARCHILD",
+  "episode": 711,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "GIGABYTE",
+  "opponent": "END GAME",
+  "episode": 713,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 43
+ },
+ {
+  "bot": "GLITCH",
+  "opponent": "RIPTIDE",
+  "episode": 701,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 47
+ },
+ {
+  "bot": "GLITCH",
+  "opponent": "LOCK-JAW",
+  "episode": 708,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 52
+ },
+ {
+  "bot": "GLITCH",
+  "opponent": "TRITON",
+  "episode": 711,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 106
+ },
+ {
+  "bot": "GLITCH",
+  "opponent": "VALKYRIE",
+  "episode": 714,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "GRUFF",
+  "opponent": "RIPPERONI",
+  "episode": 701,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "GRUFF",
+  "opponent": "QUANTUM",
+  "episode": 704,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 172
+ },
+ {
+  "bot": "GRUFF",
+  "opponent": "WITCH DOCTOR",
+  "episode": 709,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 95
+ },
+ {
+  "bot": "GRUFF",
+  "opponent": "MALICE",
+  "episode": 712,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 90
+ },
+ {
+  "bot": "HIJINX",
+  "opponent": "BIG DILL",
+  "episode": 702,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 112
+ },
+ {
+  "bot": "HIJINX",
+  "opponent": "CAPT. SHREDERATOR",
+  "episode": 706,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 142
+ },
+ {
+  "bot": "HIJINX",
+  "opponent": "RIPPERONI",
+  "episode": 709,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 101
+ },
+ {
+  "bot": "HIJINX",
+  "opponent": "SWITCHBACK",
+  "episode": 715,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 47
+ },
+ {
+  "bot": "HORIZON",
+  "opponent": "SHREDDIT BRO",
+  "episode": 704,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "HORIZON",
+  "opponent": "MONSOON",
+  "episode": 707,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 51
+ },
+ {
+  "bot": "HORIZON",
+  "opponent": "SHATTER!",
+  "episode": 710,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "HORIZON",
+  "opponent": "TRITON",
+  "episode": 714,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 122
+ },
+ {
+  "bot": "HUGE",
+  "opponent": "SHATTER!",
+  "episode": 701,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 120
+ },
+ {
+  "bot": "HUGE",
+  "opponent": "BLIP",
+  "episode": 705,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "HUGE",
+  "opponent": "FUSION",
+  "episode": 708,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 44
+ },
+ {
+  "bot": "HUGE",
+  "opponent": "STARCHILD",
+  "episode": 714,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "HYDRA",
+  "opponent": "ROTATOR",
+  "episode": 703,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 84
+ },
+ {
+  "bot": "HYDRA",
+  "opponent": "TANTRUM",
+  "episode": 706,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 117
+ },
+ {
+  "bot": "HYDRA",
+  "opponent": "FREE SHIPPING",
+  "episode": 708,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "HYDRA",
+  "opponent": "SAWBLAZE",
+  "episode": 712,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "HYPERSHOCK",
+  "opponent": "SAWBLAZE",
+  "episode": 702,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "HYPERSHOCK",
+  "opponent": "WHIPLASH",
+  "episode": 704,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 108
+ },
+ {
+  "bot": "HYPERSHOCK",
+  "opponent": "END GAME",
+  "episode": 709,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 157
+ },
+ {
+  "bot": "HYPERSHOCK",
+  "opponent": "CLAW VIPER",
+  "episode": 712,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 79
+ },
+ {
+  "bot": "JACKPOT",
+  "opponent": "SKORPIOS",
+  "episode": 703,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 55
+ },
+ {
+  "bot": "JACKPOT",
+  "opponent": "ROTATOR",
+  "episode": 706,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 169
+ },
+ {
+  "bot": "JACKPOT",
+  "opponent": "RIBBOT",
+  "episode": 709,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "JACKPOT",
+  "opponent": "CAPT. SHREDERATOR",
+  "episode": 711,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "KRAKEN",
+  "opponent": "BETA",
+  "episode": 704,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "KRAKEN",
+  "opponent": "LUCKY",
+  "episode": 707,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "KRAKEN",
+  "opponent": "COPPERHEAD",
+  "episode": 710,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 86
+ },
+ {
+  "bot": "KRAKEN",
+  "opponent": "MAMMOTH",
+  "episode": 714,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "LOCK-JAW",
+  "opponent": "MALICE",
+  "episode": 703,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "LOCK-JAW",
+  "opponent": "SAWBLAZE",
+  "episode": 705,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 156
+ },
+ {
+  "bot": "LOCK-JAW",
+  "opponent": "GLITCH",
+  "episode": 708,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 52
+ },
+ {
+  "bot": "LOCK-JAW",
+  "opponent": "MADCATTER",
+  "episode": 712,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 179
+ },
+ {
+  "bot": "LUCKY",
+  "opponent": "TRITON",
+  "episode": 703,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 72
+ },
+ {
+  "bot": "LUCKY",
+  "opponent": "KRAKEN",
+  "episode": 707,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "LUCKY",
+  "opponent": "SHREDDIT BRO",
+  "episode": 712,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 75
+ },
+ {
+  "bot": "LUCKY",
+  "opponent": "COBALT",
+  "episode": 715,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 39
+ },
+ {
+  "bot": "MADCATTER",
+  "opponent": "WHIPLASH",
+  "episode": 702,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 117
+ },
+ {
+  "bot": "MADCATTER",
+  "opponent": "RIPTIDE",
+  "episode": 705,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 61
+ },
+ {
+  "bot": "MADCATTER",
+  "opponent": "BIG DILL",
+  "episode": 709,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "MADCATTER",
+  "opponent": "LOCK-JAW",
+  "episode": 712,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 179
+ },
+ {
+  "bot": "MALICE",
+  "opponent": "LOCK-JAW",
+  "episode": 703,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "MALICE",
+  "opponent": "EMULSIFIER",
+  "episode": 704,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 112
+ },
+ {
+  "bot": "MALICE",
+  "opponent": "VALKYRIE",
+  "episode": 709,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "MALICE",
+  "opponent": "GRUFF",
+  "episode": 712,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 90
+ },
+ {
+  "bot": "MAMMOTH",
+  "opponent": "VALKYRIE",
+  "episode": 702,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 105
+ },
+ {
+  "bot": "MAMMOTH",
+  "opponent": "STARCHILD",
+  "episode": 707,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "MAMMOTH",
+  "opponent": "DEATH ROLL",
+  "episode": 710,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 48
+ },
+ {
+  "bot": "MAMMOTH",
+  "opponent": "KRAKEN",
+  "episode": 714,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "MINOTAUR",
+  "opponent": "TANTRUM",
+  "episode": 701,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 80
+ },
+ {
+  "bot": "MINOTAUR",
+  "opponent": "FREE SHIPPING",
+  "episode": 705,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 121
+ },
+ {
+  "bot": "MINOTAUR",
+  "opponent": "COBALT",
+  "episode": 707,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 174
+ },
+ {
+  "bot": "MINOTAUR",
+  "opponent": "WITCH DOCTOR",
+  "episode": 715,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "MONSOON",
+  "opponent": "BLACK DRAGON",
+  "episode": 704,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 125
+ },
+ {
+  "bot": "MONSOON",
+  "opponent": "HORIZON",
+  "episode": 707,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 51
+ },
+ {
+  "bot": "MONSOON",
+  "opponent": "WHIPLASH",
+  "episode": 710,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "MONSOON",
+  "opponent": "DEATH ROLL",
+  "episode": 715,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 52
+ },
+ {
+  "bot": "OMINOUS",
+  "opponent": "CLAW VIPER",
+  "episode": 703,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 166
+ },
+ {
+  "bot": "OMINOUS",
+  "opponent": "SHREDDIT BRO",
+  "episode": 710,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "OMINOUS",
+  "opponent": "SWITCHBACK",
+  "episode": 711,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 74
+ },
+ {
+  "bot": "OMINOUS",
+  "opponent": "SHATTER!",
+  "episode": 714,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "OVERHAUL",
+  "opponent": "STARCHILD",
+  "episode": 704,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "OVERHAUL",
+  "opponent": "CLAW VIPER",
+  "episode": 707,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "OVERHAUL",
+  "opponent": "COBALT",
+  "episode": 711,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 146
+ },
+ {
+  "bot": "OVERHAUL",
+  "opponent": "SHREDDIT BRO",
+  "episode": 713,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "QUANTUM",
+  "opponent": "CAPT. SHREDERATOR",
+  "episode": 701,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 158
+ },
+ {
+  "bot": "QUANTUM",
+  "opponent": "GRUFF",
+  "episode": 704,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 172
+ },
+ {
+  "bot": "QUANTUM",
+  "opponent": "BLACK DRAGON",
+  "episode": 708,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "QUANTUM",
+  "opponent": "EMULSIFIER",
+  "episode": 713,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "RIBBOT",
+  "opponent": "WITCH DOCTOR",
+  "episode": 701,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 75
+ },
+ {
+  "bot": "RIBBOT",
+  "opponent": "CLAW VIPER",
+  "episode": 705,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "RIBBOT",
+  "opponent": "JACKPOT",
+  "episode": 709,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "RIBBOT",
+  "opponent": "SKORPIOS",
+  "episode": 713,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 135
+ },
+ {
+  "bot": "RIPPERONI",
+  "opponent": "GRUFF",
+  "episode": 701,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "RIPPERONI",
+  "opponent": "END GAME",
+  "episode": 706,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 97
+ },
+ {
+  "bot": "RIPPERONI",
+  "opponent": "HIJINX",
+  "episode": 709,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 101
+ },
+ {
+  "bot": "RIPPERONI",
+  "opponent": "COPPERHEAD",
+  "episode": 713,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 44
+ },
+ {
+  "bot": "RIPTIDE",
+  "opponent": "GLITCH",
+  "episode": 701,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 47
+ },
+ {
+  "bot": "RIPTIDE",
+  "opponent": "MADCATTER",
+  "episode": 705,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 61
+ },
+ {
+  "bot": "RIPTIDE",
+  "opponent": "CAPT. SHREDERATOR",
+  "episode": 710,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 69
+ },
+ {
+  "bot": "RIPTIDE",
+  "opponent": "BLACK DRAGON",
+  "episode": 714,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 61
+ },
+ {
+  "bot": "ROTATOR",
+  "opponent": "HYDRA",
+  "episode": 703,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 84
+ },
+ {
+  "bot": "ROTATOR",
+  "opponent": "JACKPOT",
+  "episode": 706,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 169
+ },
+ {
+  "bot": "ROTATOR",
+  "opponent": "BLOODSPORT",
+  "episode": 711,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 107
+ },
+ {
+  "bot": "ROTATOR",
+  "opponent": "FUSION",
+  "episode": 713,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 113
+ },
+ {
+  "bot": "SAWBLAZE",
+  "opponent": "HYPERSHOCK",
+  "episode": 702,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "SAWBLAZE",
+  "opponent": "LOCK-JAW",
+  "episode": 705,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 156
+ },
+ {
+  "bot": "SAWBLAZE",
+  "opponent": "SKORPIOS",
+  "episode": 709,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 49
+ },
+ {
+  "bot": "SAWBLAZE",
+  "opponent": "HYDRA",
+  "episode": 712,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "SHATTER!",
+  "opponent": "HUGE",
+  "episode": 701,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 120
+ },
+ {
+  "bot": "SHATTER!",
+  "opponent": "BETA",
+  "episode": 708,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "SHATTER!",
+  "opponent": "HORIZON",
+  "episode": 710,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "SHATTER!",
+  "opponent": "OMINOUS",
+  "episode": 714,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "SHREDDIT BRO",
+  "opponent": "HORIZON",
+  "episode": 704,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "SHREDDIT BRO",
+  "opponent": "OMINOUS",
+  "episode": 710,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "SHREDDIT BRO",
+  "opponent": "LUCKY",
+  "episode": 712,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 75
+ },
+ {
+  "bot": "SHREDDIT BRO",
+  "opponent": "OVERHAUL",
+  "episode": 713,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "SKORPIOS",
+  "opponent": "JACKPOT",
+  "episode": 703,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 55
+ },
+ {
+  "bot": "SKORPIOS",
+  "opponent": "BIG DILL",
+  "episode": 706,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 86
+ },
+ {
+  "bot": "SKORPIOS",
+  "opponent": "SAWBLAZE",
+  "episode": 709,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 49
+ },
+ {
+  "bot": "SKORPIOS",
+  "opponent": "RIBBOT",
+  "episode": 713,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 135
+ },
+ {
+  "bot": "STARCHILD",
+  "opponent": "OVERHAUL",
+  "episode": 704,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "STARCHILD",
+  "opponent": "MAMMOTH",
+  "episode": 707,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "STARCHILD",
+  "opponent": "GIGABYTE",
+  "episode": 711,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "STARCHILD",
+  "opponent": "HUGE",
+  "episode": 714,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "SWITCHBACK",
+  "opponent": "BANSHEE",
+  "episode": 702,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "SWITCHBACK",
+  "opponent": "DEATH ROLL",
+  "episode": 706,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 104
+ },
+ {
+  "bot": "SWITCHBACK",
+  "opponent": "OMINOUS",
+  "episode": 711,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 74
+ },
+ {
+  "bot": "SWITCHBACK",
+  "opponent": "HIJINX",
+  "episode": 715,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 47
+ },
+ {
+  "bot": "TANTRUM",
+  "opponent": "MINOTAUR",
+  "episode": 701,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 80
+ },
+ {
+  "bot": "TANTRUM",
+  "opponent": "HYDRA",
+  "episode": 706,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 117
+ },
+ {
+  "bot": "TANTRUM",
+  "opponent": "BLIP",
+  "episode": 708,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "TANTRUM",
+  "opponent": "WHIPLASH",
+  "episode": 715,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 59
+ },
+ {
+  "bot": "TRITON",
+  "opponent": "LUCKY",
+  "episode": 703,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 72
+ },
+ {
+  "bot": "TRITON",
+  "opponent": "COPPERHEAD",
+  "episode": 707,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "TRITON",
+  "opponent": "GLITCH",
+  "episode": 711,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 106
+ },
+ {
+  "bot": "TRITON",
+  "opponent": "HORIZON",
+  "episode": 714,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 122
+ },
+ {
+  "bot": "VALKYRIE",
+  "opponent": "MAMMOTH",
+  "episode": 702,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 105
+ },
+ {
+  "bot": "VALKYRIE",
+  "opponent": "BANSHEE",
+  "episode": 706,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "VALKYRIE",
+  "opponent": "MALICE",
+  "episode": 709,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "VALKYRIE",
+  "opponent": "GLITCH",
+  "episode": 714,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "WHIPLASH",
+  "opponent": "MADCATTER",
+  "episode": 702,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 117
+ },
+ {
+  "bot": "WHIPLASH",
+  "opponent": "HYPERSHOCK",
+  "episode": 704,
+  "result": "LOSS",
+  "method": "KO",
+  "timeSecs": 108
+ },
+ {
+  "bot": "WHIPLASH",
+  "opponent": "MONSOON",
+  "episode": 710,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "WHIPLASH",
+  "opponent": "TANTRUM",
+  "episode": 715,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 59
+ },
+ {
+  "bot": "WITCH DOCTOR",
+  "opponent": "RIBBOT",
+  "episode": 701,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 75
+ },
+ {
+  "bot": "WITCH DOCTOR",
+  "opponent": "FUSION",
+  "episode": 705,
+  "result": "WIN",
+  "method": "JD",
+  "timeSecs": null
+ },
+ {
+  "bot": "WITCH DOCTOR",
+  "opponent": "GRUFF",
+  "episode": 709,
+  "result": "WIN",
+  "method": "KO",
+  "timeSecs": 95
+ },
+ {
+  "bot": "WITCH DOCTOR",
+  "opponent": "MINOTAUR",
+  "episode": 715,
+  "result": "LOSS",
+  "method": "JD",
+  "timeSecs": null
+ }
+]

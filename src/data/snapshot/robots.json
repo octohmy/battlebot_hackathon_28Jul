@@ -1,0 +1,598 @@
+{
+  "manta": {
+    "slug": "manta",
+    "name": "Manta",
+    "seasons": [
+      "Destruct-A-Thon & Proving Ground",
+      "Faceoffs 2024",
+      "Next Generation FaceOff",
+      "Pro League 2026"
+    ],
+    "stats": {
+      "wins": 12,
+      "losses": 2,
+      "total": 14,
+      "winRate": 85.7,
+      "koWins": 10,
+      "jdWins": 2,
+      "koPct": 83.3,
+      "koAgainst": 1,
+      "avgKoTimeSecs": 63,
+      "fastestKoSecs": 24,
+      "avgKoAgainstSecs": 31,
+      "estimatedPoints": 306
+    }
+  },
+  "terrortops": {
+    "slug": "terrortops",
+    "name": "TerrorTops",
+    "seasons": [
+      "Battle of the Verts FaceOff",
+      "Faceoffs 2024",
+      "Pro League 2026",
+      "World Championship VII"
+    ],
+    "stats": {
+      "wins": 10,
+      "losses": 4,
+      "total": 14,
+      "winRate": 71.4,
+      "koWins": 8,
+      "jdWins": 2,
+      "koPct": 80,
+      "koAgainst": 3,
+      "avgKoTimeSecs": 86,
+      "fastestKoSecs": 36,
+      "avgKoAgainstSecs": 115,
+      "estimatedPoints": 252
+    }
+  },
+  "skorpios": {
+    "slug": "skorpios",
+    "name": "Skorpios",
+    "seasons": [
+      "Amazon re:MARS",
+      "Destruct-A-Thon & Proving Ground",
+      "Faceoffs 2024",
+      "Pro League 2026",
+      "Season 2016",
+      "Season 2018",
+      "Season 2019",
+      "Season 2020",
+      "Season 2021",
+      "World Championship VII"
+    ],
+    "stats": {
+      "wins": 27,
+      "losses": 17,
+      "total": 44,
+      "winRate": 61.4,
+      "koWins": 12,
+      "jdWins": 15,
+      "koPct": 44.4,
+      "koAgainst": 11,
+      "avgKoTimeSecs": 115,
+      "fastestKoSecs": 55,
+      "avgKoAgainstSecs": 92,
+      "estimatedPoints": 594
+    }
+  },
+  "valkyrie": {
+    "slug": "valkyrie",
+    "name": "Valkyrie",
+    "seasons": [
+      "Faceoffs 2024",
+      "Pro League 2026",
+      "Season 2018",
+      "Season 2019",
+      "Season 2020",
+      "Season 2021",
+      "World Championship VII"
+    ],
+    "stats": {
+      "wins": 22,
+      "losses": 17,
+      "total": 39,
+      "winRate": 56.4,
+      "koWins": 14,
+      "jdWins": 8,
+      "koPct": 63.6,
+      "koAgainst": 12,
+      "avgKoTimeSecs": 99,
+      "fastestKoSecs": 42,
+      "avgKoAgainstSecs": 106,
+      "estimatedPoints": 522
+    }
+  },
+  "madcatter": {
+    "slug": "madcatter",
+    "name": "MadCatter",
+    "seasons": [
+      "Amazon re:MARS",
+      "Faceoffs 2024",
+      "Pro League 2026",
+      "Season 2019",
+      "Season 2020",
+      "Season 2021",
+      "World Championship VII"
+    ],
+    "stats": {
+      "wins": 20,
+      "losses": 13,
+      "total": 33,
+      "winRate": 60.6,
+      "koWins": 16,
+      "jdWins": 4,
+      "koPct": 80,
+      "koAgainst": 8,
+      "avgKoTimeSecs": 73,
+      "fastestKoSecs": 33,
+      "avgKoAgainstSecs": 119,
+      "estimatedPoints": 504
+    }
+  },
+  "magnitude": {
+    "slug": "magnitude",
+    "name": "Magnitude",
+    "seasons": [
+      "Battle of the Verts FaceOff",
+      "Destruct-A-Thon & Proving Ground",
+      "Faceoffs 2024",
+      "Pro League 2026"
+    ],
+    "stats": {
+      "wins": 7,
+      "losses": 6,
+      "total": 13,
+      "winRate": 53.8,
+      "koWins": 6,
+      "jdWins": 1,
+      "koPct": 85.7,
+      "koAgainst": 5,
+      "avgKoTimeSecs": 80,
+      "fastestKoSecs": 16,
+      "avgKoAgainstSecs": 126,
+      "estimatedPoints": 180
+    }
+  },
+  "disarray": {
+    "slug": "disarray",
+    "name": "Disarray",
+    "seasons": [
+      "Destruct-A-Thon & Proving Ground",
+      "Faceoffs 2024",
+      "Next Generation FaceOff",
+      "Pro League 2026"
+    ],
+    "stats": {
+      "wins": 4,
+      "losses": 13,
+      "total": 17,
+      "winRate": 23.5,
+      "koWins": 2,
+      "jdWins": 2,
+      "koPct": 50,
+      "koAgainst": 11,
+      "avgKoTimeSecs": 107,
+      "fastestKoSecs": 64,
+      "avgKoAgainstSecs": 70,
+      "estimatedPoints": 90
+    }
+  },
+  "tombstone": {
+    "slug": "tombstone",
+    "name": "Tombstone",
+    "seasons": [
+      "Amazon re:MARS",
+      "Faceoffs 2024",
+      "Pro League 2026",
+      "Season 2016",
+      "Season 2018",
+      "Season 2019",
+      "Season 2020",
+      "Season 2021"
+    ],
+    "stats": {
+      "wins": 22,
+      "losses": 13,
+      "total": 35,
+      "winRate": 62.9,
+      "koWins": 17,
+      "jdWins": 5,
+      "koPct": 77.3,
+      "koAgainst": 11,
+      "avgKoTimeSecs": 86,
+      "fastestKoSecs": 32,
+      "avgKoAgainstSecs": 96,
+      "estimatedPoints": 549
+    }
+  },
+  "the-twins": {
+    "slug": "the-twins",
+    "name": "The Twins",
+    "seasons": [
+      "Destruct-A-Thon & Proving Ground",
+      "Pro League 2026"
+    ],
+    "stats": {
+      "wins": 5,
+      "losses": 2,
+      "total": 7,
+      "winRate": 71.4,
+      "koWins": 3,
+      "jdWins": 2,
+      "koPct": 60,
+      "koAgainst": 1,
+      "avgKoTimeSecs": 124,
+      "fastestKoSecs": 31,
+      "avgKoAgainstSecs": 149,
+      "estimatedPoints": 117
+    }
+  },
+  "copperhead": {
+    "slug": "copperhead",
+    "name": "Copperhead",
+    "seasons": [
+      "Pro League 2026",
+      "Season 2019",
+      "Season 2020",
+      "Season 2021",
+      "World Championship VII"
+    ],
+    "stats": {
+      "wins": 18,
+      "losses": 9,
+      "total": 27,
+      "winRate": 66.7,
+      "koWins": 9,
+      "jdWins": 9,
+      "koPct": 50,
+      "koAgainst": 7,
+      "avgKoTimeSecs": 81,
+      "fastestKoSecs": 35,
+      "avgKoAgainstSecs": 101,
+      "estimatedPoints": 405
+    }
+  },
+  "cobalt": {
+    "slug": "cobalt",
+    "name": "Cobalt",
+    "seasons": [
+      "Amazon re:MARS",
+      "Faceoffs 2024",
+      "Pro League 2026",
+      "Season 2016",
+      "Season 2019",
+      "Season 2021",
+      "World Championship VII"
+    ],
+    "stats": {
+      "wins": 19,
+      "losses": 11,
+      "total": 30,
+      "winRate": 63.3,
+      "koWins": 15,
+      "jdWins": 4,
+      "koPct": 78.9,
+      "koAgainst": 10,
+      "avgKoTimeSecs": 90,
+      "fastestKoSecs": 0,
+      "avgKoAgainstSecs": 115,
+      "estimatedPoints": 477
+    }
+  },
+  "jackpot": {
+    "slug": "jackpot",
+    "name": "Jackpot",
+    "seasons": [
+      "Amazon re:MARS",
+      "Battle of the Verts FaceOff",
+      "Destruct-A-Thon & Proving Ground",
+      "Faceoffs 2024",
+      "Pro League 2026",
+      "Season 2020",
+      "Season 2021",
+      "World Championship VII"
+    ],
+    "stats": {
+      "wins": 19,
+      "losses": 17,
+      "total": 36,
+      "winRate": 52.8,
+      "koWins": 12,
+      "jdWins": 7,
+      "koPct": 63.2,
+      "koAgainst": 15,
+      "avgKoTimeSecs": 87,
+      "fastestKoSecs": 40,
+      "avgKoAgainstSecs": 102,
+      "estimatedPoints": 450
+    }
+  },
+  "golden-fury": {
+    "slug": "golden-fury",
+    "name": "Golden Fury",
+    "seasons": [
+      "Pro League 2026"
+    ],
+    "stats": {
+      "wins": 3,
+      "losses": 1,
+      "total": 4,
+      "winRate": 75,
+      "koWins": 2,
+      "jdWins": 1,
+      "koPct": 66.7,
+      "koAgainst": 0,
+      "avgKoTimeSecs": 93,
+      "fastestKoSecs": 41,
+      "avgKoAgainstSecs": null,
+      "estimatedPoints": 72
+    }
+  },
+  "malice": {
+    "slug": "malice",
+    "name": "Malice",
+    "seasons": [
+      "Amazon re:MARS",
+      "Faceoffs 2024",
+      "Pro League 2026",
+      "Season 2020",
+      "Season 2021",
+      "World Championship VII"
+    ],
+    "stats": {
+      "wins": 16,
+      "losses": 13,
+      "total": 29,
+      "winRate": 55.2,
+      "koWins": 9,
+      "jdWins": 7,
+      "koPct": 56.3,
+      "koAgainst": 7,
+      "avgKoTimeSecs": 118,
+      "fastestKoSecs": 75,
+      "avgKoAgainstSecs": 88,
+      "estimatedPoints": 369
+    }
+  },
+  "end-game": {
+    "slug": "end-game",
+    "name": "End Game",
+    "seasons": [
+      "Pro League 2026",
+      "Season 2018",
+      "Season 2019",
+      "Season 2020",
+      "Season 2021",
+      "World Championship VII"
+    ],
+    "stats": {
+      "wins": 29,
+      "losses": 12,
+      "total": 41,
+      "winRate": 70.7,
+      "koWins": 23,
+      "jdWins": 6,
+      "koPct": 79.3,
+      "koAgainst": 9,
+      "avgKoTimeSecs": 89,
+      "fastestKoSecs": 29,
+      "avgKoAgainstSecs": 105,
+      "estimatedPoints": 729
+    }
+  },
+  "minotaur": {
+    "slug": "minotaur",
+    "name": "Minotaur",
+    "seasons": [
+      "Destruct-A-Thon & Proving Ground",
+      "Faceoffs 2024",
+      "Pro League 2026",
+      "Season 2016",
+      "Season 2018",
+      "Season 2019",
+      "Season 2021",
+      "World Championship VII"
+    ],
+    "stats": {
+      "wins": 35,
+      "losses": 13,
+      "total": 48,
+      "winRate": 72.9,
+      "koWins": 24,
+      "jdWins": 11,
+      "koPct": 68.6,
+      "koAgainst": 6,
+      "avgKoTimeSecs": 100,
+      "fastestKoSecs": 42,
+      "avgKoAgainstSecs": 142,
+      "estimatedPoints": 846
+    }
+  },
+  "bloodsport": {
+    "slug": "bloodsport",
+    "name": "Bloodsport",
+    "seasons": [
+      "Destruct-A-Thon & Proving Ground",
+      "Faceoffs 2024",
+      "Pro League 2026",
+      "Season 2019",
+      "Season 2020",
+      "Season 2021",
+      "World Championship VII"
+    ],
+    "stats": {
+      "wins": 23,
+      "losses": 17,
+      "total": 40,
+      "winRate": 57.5,
+      "koWins": 18,
+      "jdWins": 5,
+      "koPct": 78.3,
+      "koAgainst": 10,
+      "avgKoTimeSecs": 83,
+      "fastestKoSecs": 38,
+      "avgKoAgainstSecs": 98,
+      "estimatedPoints": 576
+    }
+  },
+  "huge": {
+    "slug": "huge",
+    "name": "HUGE",
+    "seasons": [
+      "Pro League 2026",
+      "Season 2018",
+      "Season 2019",
+      "Season 2020",
+      "Season 2021",
+      "World Championship VII"
+    ],
+    "stats": {
+      "wins": 21,
+      "losses": 14,
+      "total": 35,
+      "winRate": 60,
+      "koWins": 10,
+      "jdWins": 11,
+      "koPct": 47.6,
+      "koAgainst": 6,
+      "avgKoTimeSecs": 104,
+      "fastestKoSecs": 44,
+      "avgKoAgainstSecs": 80,
+      "estimatedPoints": 468
+    }
+  },
+  "hypershock": {
+    "slug": "hypershock",
+    "name": "HyperShock",
+    "seasons": [
+      "Amazon re:MARS",
+      "Destruct-A-Thon & Proving Ground",
+      "Faceoffs 2024",
+      "Pro League 2026",
+      "Season 2016",
+      "Season 2018",
+      "Season 2019",
+      "Season 2020",
+      "Season 2021",
+      "World Championship VII"
+    ],
+    "stats": {
+      "wins": 28,
+      "losses": 22,
+      "total": 50,
+      "winRate": 56,
+      "koWins": 23,
+      "jdWins": 5,
+      "koPct": 82.1,
+      "koAgainst": 16,
+      "avgKoTimeSecs": 101,
+      "fastestKoSecs": 17,
+      "avgKoAgainstSecs": 109,
+      "estimatedPoints": 711
+    }
+  },
+  "orbitron": {
+    "slug": "orbitron",
+    "name": "Orbitron",
+    "seasons": [
+      "Battle of the Verts FaceOff",
+      "Destruct-A-Thon & Proving Ground",
+      "Faceoffs 2024",
+      "Pro League 2026"
+    ],
+    "stats": {
+      "wins": 7,
+      "losses": 7,
+      "total": 14,
+      "winRate": 50,
+      "koWins": 7,
+      "jdWins": 0,
+      "koPct": 100,
+      "koAgainst": 6,
+      "avgKoTimeSecs": 62,
+      "fastestKoSecs": 29,
+      "avgKoAgainstSecs": 59,
+      "estimatedPoints": 189
+    }
+  },
+  "witch-doctor": {
+    "slug": "witch-doctor",
+    "name": "Witch Doctor",
+    "seasons": [
+      "Faceoffs 2024",
+      "Pro League 2026",
+      "Season 2016",
+      "Season 2018",
+      "Season 2019",
+      "Season 2020",
+      "Season 2021",
+      "World Championship VII"
+    ],
+    "stats": {
+      "wins": 35,
+      "losses": 14,
+      "total": 49,
+      "winRate": 71.4,
+      "koWins": 26,
+      "jdWins": 9,
+      "koPct": 74.3,
+      "koAgainst": 9,
+      "avgKoTimeSecs": 94,
+      "fastestKoSecs": 35,
+      "avgKoAgainstSecs": 104,
+      "estimatedPoints": 864
+    }
+  },
+  "ribbot": {
+    "slug": "ribbot",
+    "name": "Ribbot",
+    "seasons": [
+      "Pro League 2026",
+      "Season 2019",
+      "Season 2020",
+      "Season 2021",
+      "World Championship VII"
+    ],
+    "stats": {
+      "wins": 20,
+      "losses": 15,
+      "total": 35,
+      "winRate": 57.1,
+      "koWins": 19,
+      "jdWins": 1,
+      "koPct": 95,
+      "koAgainst": 7,
+      "avgKoTimeSecs": 99,
+      "fastestKoSecs": 20,
+      "avgKoAgainstSecs": 68,
+      "estimatedPoints": 531
+    }
+  },
+  "switchback": {
+    "slug": "switchback",
+    "name": "Switchback",
+    "seasons": [
+      "Destruct-A-Thon & Proving Ground",
+      "Faceoffs 2024",
+      "Pro League 2026",
+      "Season 2021",
+      "World Championship VII"
+    ],
+    "stats": {
+      "wins": 9,
+      "losses": 11,
+      "total": 20,
+      "winRate": 45,
+      "koWins": 7,
+      "jdWins": 2,
+      "koPct": 77.8,
+      "koAgainst": 10,
+      "avgKoTimeSecs": 67,
+      "fastestKoSecs": 39,
+      "avgKoAgainstSecs": 108,
+      "estimatedPoints": 225
+    }
+  }
+}
