@@ -25,11 +25,40 @@ from BattleBots' own APIs, with the sources listed in-app on `/intel`.
 
 ## Data sources
 
-| Data | Source |
-|---|---|
-| Standings, career stats | `battlebots.com/wp-json/bbpl/v1/{standings,robot-stats}` |
-| Fight-by-fight history | WC VII match schedule (published Google Sheet on `/match-schedule/`) — 100 matches, each independently confirmed from both bots' rows |
-| Weapon types, images, teams | `battlebots.com/robot/<slug>/` and the Pro League roster |
+| Data | Source | How |
+|---|---|---|
+| Standings, career stats | `battlebots.com/wp-json/bbpl/v1/{standings,robot-stats}` | Direct fetch |
+| **Fight-by-fight history** | **`battlebots.com/match-schedule/`** | **Bright Data Scraping Browser** |
+| Weapon types, images, teams | `battlebots.com/robot/<slug>/`, Pro League roster | Direct fetch |
+
+### Bright Data
+
+Match history is scraped with the **Bright Data Scraping Browser**
+(`npm run matches` → [`scripts/matches.mjs`](scripts/matches.mjs)).
+
+This is not decoration — it is the only way to get that data:
+
+- A plain fetch of `battlebots.com/match-schedule/` returns **zero bot names**.
+  The page renders nothing useful server-side.
+- The schedule is a Google Sheet embedded in a **cross-origin iframe**, drawn
+  client-side. `curl` and static HTML parsing both come back empty.
+- So it needs a real browser that executes JavaScript and can reach into that
+  frame. `puppeteer-core` connects to the Bright Data Scraping Browser over
+  websocket, waits for the sheet to paint, and reads the grid out of the frame.
+
+The scraper yields **200 records across 100 matches**. Each match is recorded
+independently from both bots' rows, and the script asserts that all 100 pairings
+reconcile before it will write anything — so an upstream layout change fails
+loudly rather than silently corrupting the data.
+
+That fight history is what makes the AI's trash talk *checkable* rather than
+generic: it is why the model can say Copperhead knocked out Bloodsport in 35
+seconds in episode 703, and be right.
+
+> Worth noting for anyone extending this: Bright Data **enforces robots.txt**.
+> Reddit disallows crawling, so a fan-sentiment scrape was attempted and
+> abandoned — the Scraping Browser correctly refuses those URLs. battlebots.com
+> permits crawling, which is why the match scrape works.
 
 Career stats are genuinely unavailable at source for **Calypso** (unknown slug)
 and **Death Roll** (upstream 502); those cards show `NO DATA` rather than a
@@ -50,6 +79,7 @@ npm run dev
 | `npm run dev:live` | Dev server fetching the BattleBots API live on render |
 | `npm run snapshot` | Refresh the committed snapshot from the API |
 | `npm run announcer` | Regenerate the announcer voice bank (`--dry` to preview) |
+| `npm run matches` | Re-scrape fight history via the Bright Data Scraping Browser |
 
 ### Why snapshot-first?
 
@@ -61,6 +91,7 @@ refreshes it in one command.
 
 ## Credits
 
+- Scraping: **Bright Data** Scraping Browser (hack night sponsor).
 - Sounds: [Kenney Interface Sounds](https://kenney.nl/assets/interface-sounds) (CC0).
 - Voice: ElevenLabs. Text generation: Gemini 3.5 Flash Lite via OpenRouter.
 - Bot images and all statistics © BattleBots Inc.
