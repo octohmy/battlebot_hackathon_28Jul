@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Two corners of the ring, clipped like every panel in the app. -->
+  <path d="M0 0h26l6 6v26H6l-6-6z" fill="#07080a"/>
+  <path d="M4 7h11v18H4z" fill="#e10600"/>
+  <path d="M17 7h11v18H17z" fill="#2f8fc9"/>
+  <!-- Ring rope across the middle. -->
+  <path d="M2 16h28" stroke="#e8ecf1" stroke-width="1.5"/>
+  <path d="M0 0h26l6 6v26H6l-6-6z" fill="none" stroke="#2a3038" stroke-width="2"/>
+</svg>

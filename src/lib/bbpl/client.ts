@@ -49,7 +49,7 @@ async function getJson<T>(path: string): Promise<T | null> {
     const res = await fetch(`${BASE}${path}`, {
       signal: ctl.signal,
       headers: {
-        "User-Agent": "Mozilla/5.0 (compatible; WreckedArena/1.0)",
+        "User-Agent": "Mozilla/5.0 (compatible; RedCornerBlueBot/1.0)",
         ...(TOKEN ? { Authorization: `Bearer ${TOKEN}` } : {}),
       },
       next: { revalidate: 3600 },
@@ -146,12 +146,36 @@ function metaFor(name: string) {
   };
 }
 
+/**
+ * Zero is not a fight time.
+ *
+ * Cobalt comes back from `robot-stats` with 15 career knockouts and a
+ * `fastestKoSecs` of 0 — nobody knocks a robot out in no seconds, so that is a
+ * missing value wearing a number's clothes. Left alone it wins the Fastest KO
+ * trump against every bot in the league and gets handed to the AI as a fact to
+ * cite. The other KO-time fields get the same treatment for the same reason.
+ *
+ * Normalising here rather than at each call site means the card, the trump
+ * resolver, the radar, the telemetry panel and the prompt builder all agree
+ * that the figure is absent.
+ */
+function normalizeCareer(stats: Robot["stats"] | null): Robot["stats"] | null {
+  if (!stats) return null;
+  const zeroIsMissing = (v: number | null) => (v === 0 ? null : v);
+  return {
+    ...stats,
+    fastestKoSecs: zeroIsMissing(stats.fastestKoSecs),
+    avgKoTimeSecs: zeroIsMissing(stats.avgKoTimeSecs),
+    avgKoAgainstSecs: zeroIsMissing(stats.avgKoAgainstSecs),
+  };
+}
+
 async function fetchCareer(slug: string): Promise<Robot["stats"] | null> {
   const fallback = robotsSnap[slug]?.stats ?? null;
-  if (!LIVE) return fallback;
+  if (!LIVE) return normalizeCareer(fallback);
   const raw = await getJson<{ data: Robot }>(`/robot-stats?slug=${slug}`);
   const parsed = RobotSchema.safeParse(raw?.data);
-  return parsed.success ? parsed.data.stats : fallback;
+  return normalizeCareer(parsed.success ? parsed.data.stats : fallback);
 }
 
 /**

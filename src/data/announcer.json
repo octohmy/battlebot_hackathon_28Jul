@@ -1,6 +1,6 @@
 {
   "voice": "QOPygVUhJmHWpZyjcBdf",
-  "generatedAt": "2026-07-28T18:31:50.512Z",
+  "generatedAt": "2026-07-30T12:00:47.257Z",
   "names": {
     "manta": {
       "text": "Manta",
@@ -307,11 +307,11 @@
       "file": "/audio/announcer/connectives/intro_3.mp3"
     },
     "in_red": {
-      "text": "In the red square,",
+      "text": "In the red corner,",
       "file": "/audio/announcer/connectives/in_red.mp3"
     },
     "in_blue": {
-      "text": "And in the blue square,",
+      "text": "And in the blue corner,",
       "file": "/audio/announcer/connectives/in_blue.mp3"
     },
     "versus": {

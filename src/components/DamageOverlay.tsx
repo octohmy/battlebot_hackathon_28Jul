@@ -149,7 +149,7 @@ export default function DamageOverlay() {
         style={{
           opacity: damage * 0.5,
           background:
-            "radial-gradient(120% 100% at 0% 50%, #e1060033, transparent 45%), radial-gradient(120% 100% at 100% 50%, #3aa0dc33, transparent 45%)",
+            "radial-gradient(120% 100% at 0% 50%, #e1060033, transparent 45%), radial-gradient(120% 100% at 100% 50%, #2f8fc933, transparent 45%)",
         }}
       />
 

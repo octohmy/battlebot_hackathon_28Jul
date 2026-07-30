@@ -1,7 +1,7 @@
 "use client";
 
 import manifest from "@/data/announcer.json";
-import { isMuted } from "@/lib/audio";
+import { audioContext, isMuted } from "@/lib/audio";
 
 /**
  * Ring announcer playback.
@@ -31,24 +31,12 @@ interface Manifest {
 
 const BANK = manifest as Manifest;
 
-let ctx: AudioContext | null = null;
 const cache = new Map<string, AudioBuffer>();
 /** Lets a new call cut off one already in progress. */
 let generation = 0;
 let activeSources: AudioBufferSourceNode[] = [];
 
-function context(): AudioContext | null {
-  if (typeof window === "undefined") return null;
-  if (!ctx) {
-    const Ctor =
-      window.AudioContext ??
-      (window as unknown as { webkitAudioContext?: typeof AudioContext })
-        .webkitAudioContext;
-    if (!Ctor) return null;
-    ctx = new Ctor();
-  }
-  return ctx;
-}
+const context = audioContext;
 
 async function buffer(url: string): Promise<AudioBuffer | null> {
   const c = context();

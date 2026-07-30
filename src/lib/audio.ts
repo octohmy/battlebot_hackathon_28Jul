@@ -68,6 +68,15 @@ function context(): AudioContext | null {
   return ctx;
 }
 
+/**
+ * The one AudioContext for the whole app. The announcer and the live
+ * commentary share it so a single unlock gesture arms everything and mute
+ * means the same thing everywhere.
+ */
+export function audioContext(): AudioContext | null {
+  return context();
+}
+
 async function load(name: Sfx): Promise<AudioBuffer | null> {
   const c = context();
   if (!c) return null;

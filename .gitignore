@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# cached ElevenLabs reads of AI lines (see src/app/api/say/route.ts)
+/.tts-cache
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

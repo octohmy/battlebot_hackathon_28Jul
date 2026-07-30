@@ -55,8 +55,8 @@ const CONNECTIVES = {
   intro_1: "Ladies and gentlemen, welcome to the BattleBox!",
   intro_2: "Our next match is about to begin!",
   intro_3: "This is the one you have been waiting for!",
-  in_red: "In the red square,",
-  in_blue: "And in the blue square,",
+  in_red: "In the red corner,",
+  in_blue: "And in the blue corner,",
   versus: "versus",
   fight: "Three! Two! One! Activate!",
   ko: "Knockout! It is all over!",
@@ -235,7 +235,27 @@ mkdirSync(join(OUT, "connectives"), { recursive: true });
 const q = await quota();
 if (q) console.log(`ElevenLabs quota: ${q.used}/${q.limit} used, ${q.left} left\n`);
 
+/**
+ * Seeded from the existing manifest, not from empty.
+ *
+ * A partial run (`--only-connectives`) only produces jobs for the clips it
+ * touches, so starting from a blank manifest and writing it at the end deleted
+ * every bot name and nugget from the bank while leaving their mp3s orphaned on
+ * disk. Partial runs must merge.
+ */
 const manifest = { voice: VOICE, generatedAt: new Date().toISOString(), names: {}, nuggets: {}, connectives: {} };
+try {
+  const manifestPath = join(ROOT, "src/data/announcer.json");
+  if (existsSync(manifestPath)) {
+    const old = JSON.parse(readFileSync(manifestPath, "utf8"));
+    for (const kind of ["names", "nuggets", "connectives"]) {
+      Object.assign(manifest[kind], old[kind] ?? {});
+    }
+  }
+} catch {
+  /* No usable manifest — start clean. */
+}
+
 const jobs = [];
 
 for (const [key, text] of Object.entries(CONNECTIVES)) {
@@ -293,10 +313,34 @@ if (q && chars > q.left) {
 }
 
 console.log("\nSynthesising...");
+
+// What each existing clip actually says, from the last manifest. Caching on
+// filename alone was a trap: edit a line's wording and the script would keep
+// the old audio while the manifest — and therefore the on-screen subtitle —
+// claimed the new words. Anything whose text has changed is re-synthesised.
+let previous = {};
+try {
+  const manifestPath = join(ROOT, "src/data/announcer.json");
+  if (existsSync(manifestPath)) {
+    const old = JSON.parse(readFileSync(manifestPath, "utf8"));
+    for (const kind of ["names", "nuggets", "connectives"]) {
+      for (const [key, clip] of Object.entries(old[kind] ?? {})) {
+        previous[`${kind}/${key}`] = clip.text;
+      }
+    }
+  }
+} catch {
+  /* No usable manifest — treat everything as new. */
+}
+
 let done = 0;
 for (const j of jobs) {
   const out = join(OUT, j.file);
-  if (existsSync(out)) {
+  const stale = previous[`${j.kind}/${j.key}`] !== j.text;
+  if (stale && existsSync(out)) {
+    console.log(`  (reworded) ${j.file}`);
+  }
+  if (existsSync(out) && !stale) {
     manifest[j.kind][j.key] = { text: j.text, file: `/audio/announcer/${j.file}` };
     console.log(`  (cached) ${j.file}`);
     continue;

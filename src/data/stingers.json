@@ -1,0 +1,76 @@
+{
+  "voice": "QOPygVUhJmHWpZyjcBdf",
+  "generatedAt": "2026-07-30T04:01:18.983Z",
+  "groups": {
+    "burn": [
+      {
+        "text": "Oh! He did not just say that!",
+        "file": "/audio/stingers/burn_0.mp3"
+      },
+      {
+        "text": "Ohhh, that is going to leave a mark!",
+        "file": "/audio/stingers/burn_1.mp3"
+      },
+      {
+        "text": "No way! No way!",
+        "file": "/audio/stingers/burn_2.mp3"
+      },
+      {
+        "text": "That is just disrespectful!",
+        "file": "/audio/stingers/burn_3.mp3"
+      },
+      {
+        "text": "Right in the circuits!",
+        "file": "/audio/stingers/burn_4.mp3"
+      }
+    ],
+    "read": [
+      {
+        "text": "The numbers do not lie.",
+        "file": "/audio/stingers/read_0.mp3"
+      },
+      {
+        "text": "Let us break this down.",
+        "file": "/audio/stingers/read_1.mp3"
+      },
+      {
+        "text": "Bold call!",
+        "file": "/audio/stingers/read_2.mp3"
+      }
+    ],
+    "turnRed": [
+      {
+        "text": "Red square, you are up!",
+        "file": "/audio/stingers/turnRed_0.mp3"
+      }
+    ],
+    "turnBlue": [
+      {
+        "text": "Blue square, your move!",
+        "file": "/audio/stingers/turnBlue_0.mp3"
+      }
+    ],
+    "bigHit": [
+      {
+        "text": "Listen to this crowd!",
+        "file": "/audio/stingers/bigHit_0.mp3"
+      },
+      {
+        "text": "That is going to sting in the morning!",
+        "file": "/audio/stingers/bigHit_1.mp3"
+      }
+    ],
+    "tag": [
+      {
+        "text": "Tag! Fresh machine in the box!",
+        "file": "/audio/stingers/tag_0.mp3"
+      }
+    ],
+    "level": [
+      {
+        "text": "This one is levelling up!",
+        "file": "/audio/stingers/level_0.mp3"
+      }
+    ]
+  }
+}

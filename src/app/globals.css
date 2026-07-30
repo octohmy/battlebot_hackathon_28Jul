@@ -1,21 +1,22 @@
 @import "tailwindcss";
 
 /*
- * WRECKED — brand system.
+ * RED CORNER BLUE BOT — brand system.
  *
  * Palette and type are lifted from battlebots.com itself: Barlow Condensed for
  * the heavy condensed display face that matches the logo, Raleway for body.
  * Red/blue split is the logo's two-tone "BB" mark.
  *
  * Design direction is deliberately *not* soft-gradient glassmorphism: this is
- * industrial fight-card — hard edges, heavy rules, scanlines, stencil numerals,
- * brutal contrast on near-black.
+ * a boxing broadcast rendered in steel — hard edges, heavy rules, scanlines,
+ * stencil numerals, ring ropes, brutal contrast on near-black. Red and blue are
+ * the two corners, and nothing else in the interface is allowed to use them.
  */
 
 @theme inline {
   --color-bb-red: #e10600;
   --color-bb-red-deep: #8f0400;
-  --color-bb-blue: #3aa0dc;
+  --color-bb-blue: #2f8fc9;
   --color-bb-blue-deep: #14618f;
   --color-bb-black: #07080a;
   --color-bb-panel: #101317;
@@ -84,6 +85,17 @@ body {
     linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0) 40%),
     #101317;
   border: 1px solid #2a3038;
+}
+
+/* Ring ropes: three taut lines, lit from above, strung across the top of the
+   stage. Each is a hairline highlight over a thicker shadow, which is what
+   reads as a cylinder rather than a border. */
+.ropes {
+  background-image:
+    linear-gradient(180deg, transparent 0 3px, #e8ecf14d 3px 5px, #6d757e66 5px 8px, #00000099 8px 10px, transparent 10px),
+    linear-gradient(180deg, transparent 0 14px, #e8ecf14d 14px 16px, #6d757e66 16px 19px, #00000099 19px 21px, transparent 21px),
+    linear-gradient(180deg, transparent 0 25px, #e8ecf14d 25px 27px, #6d757e66 27px 30px, #00000099 30px 32px, transparent 32px);
+  background-repeat: no-repeat;
 }
 
 /* Diagonal hazard stripes — alternates, dropouts, warnings. */
@@ -185,11 +197,146 @@ body {
   pointer-events: none;
 }
 
+/* ── Battle motion ─────────────────────────────────────────────────────── */
+
+/* Floating combat text: damage, XP, KO stamps. */
+@keyframes float-up {
+  0% { opacity: 0; transform: translateY(14px) scale(0.85); }
+  18% { opacity: 1; transform: translateY(0) scale(1.06); }
+  30% { transform: translateY(-2px) scale(1); }
+  100% { opacity: 0; transform: translateY(-46px) scale(1); }
+}
+.float-up {
+  animation: float-up 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Round outcome stamp, slammed on like a rubber stamp. */
+@keyframes stamp {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(2.6) rotate(-14deg); }
+  55% { opacity: 1; transform: translate(-50%, -50%) scale(0.92) rotate(-8deg); }
+  70% { transform: translate(-50%, -50%) scale(1.04) rotate(-8deg); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-8deg); }
+}
+.stamp {
+  animation: stamp 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  background: rgba(7, 8, 10, 0.72);
+}
+
+/* Turn-change takeover. */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes banner-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes wipe-in {
+  from { transform: translateX(var(--wipe-from, -110%)); }
+  to { transform: translateX(0); }
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes chev {
+  0% { opacity: 0; transform: translateX(-14px); }
+  40% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(14px); }
+}
+
+/* ── Broadcast stingers ────────────────────────────────────────────────── */
+/* Durations are set in JS (see lib/broadcast.ts) so the sound design can hit
+   the same marks; these only describe the shape of the move. */
+
+@keyframes stinger-wipe-in {
+  from { transform: translateX(-130%) skewX(-9deg); }
+  to   { transform: translateX(0) skewX(-9deg); }
+}
+@keyframes stinger-wipe-out {
+  from { transform: translateX(0) skewX(-9deg); }
+  to   { transform: translateX(130%) skewX(-9deg); }
+}
+
+@keyframes stinger-slam-top-in {
+  from { transform: translateY(-101%); }
+  to   { transform: translateY(0); }
+}
+@keyframes stinger-slam-top-out {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-101%); }
+}
+@keyframes stinger-slam-bottom-in {
+  from { transform: translateY(101%); }
+  to   { transform: translateY(0); }
+}
+@keyframes stinger-slam-bottom-out {
+  from { transform: translateY(0); }
+  to   { transform: translateY(101%); }
+}
+
+@keyframes stinger-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes stinger-fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+@keyframes stinger-pop-in {
+  from { opacity: 0; transform: scale(1.18); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Endless roster ticker. The track holds the list twice, so -50% loops. */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee {
+  animation: marquee 60s linear infinite;
+  width: max-content;
+}
+.marquee:hover {
+  animation-play-state: paused;
+}
+
+/* The opponent deliberating: a scan sweeping across the stage. */
+@keyframes scan-across {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+/* A stat row being considered by the machine. */
+@keyframes scan-line {
+  0%, 100% { box-shadow: inset 0 0 0 0 transparent; }
+  50% { box-shadow: inset 0 0 22px -6px #2f8fc9; }
+}
+.scan-line {
+  animation: scan-line 1.7s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .shake,
   .flicker,
-  .sheen::before {
+  .sheen::before,
+  .scan-line,
+  .marquee {
     animation: none !important;
+  }
+  /* The stinger is not exempt: it still has to cover the screen, that being
+     its whole job. It just fades instead of travelling — see the
+     reduced-motion branch in BroadcastCurtain, which picks the animation
+     because only the component knows whether it is covering or revealing. */
+  /* Combat text and the turn call still need to appear and clear, so they
+     keep their animation — it is load-bearing, not decoration. They just
+     arrive without the travel. */
+  .float-up {
+    animation: fade-in 200ms ease-out forwards, banner-out 300ms 1.2s forwards;
+  }
+  .stamp {
+    animation: fade-in 150ms ease-out both;
+    transform: translate(-50%, -50%) rotate(-8deg);
   }
   *,
   *::before,

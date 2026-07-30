@@ -72,9 +72,9 @@ export async function POST(req: NextRequest) {
     headers: {
       Authorization: `Bearer ${key}`,
       "Content-Type": "application/json",
-      "HTTP-Referer": "https://wrecked.vercel.app",
+      "HTTP-Referer": "https://red-corner-blue-bot.vercel.app",
       // ASCII only: HTTP header values are latin-1, an em-dash here throws.
-      "X-Title": "WRECKED - BattleBots Card Arena",
+      "X-Title": "Red Corner Blue Bot - BattleBots Card Arena",
     },
     body: JSON.stringify({
       model: process.env.OPENROUTER_MODEL ?? "google/gemini-3.5-flash-lite",

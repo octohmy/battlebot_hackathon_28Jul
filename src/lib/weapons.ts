@@ -49,7 +49,7 @@ export const WEAPON_LABELS: Record<WeaponClass, string> = {
 /** Brand-adjacent accent per weapon class, used by charts and card trim. */
 export const WEAPON_COLORS: Record<WeaponClass, string> = {
   vertical: "#E10600",
-  horizontal: "#3AA0DC",
+  horizontal: "#2F8FC9",
   drum: "#F5A623",
   "hammer-saw": "#B14AED",
   flipper: "#33D17A",

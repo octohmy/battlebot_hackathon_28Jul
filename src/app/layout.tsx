@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Barlow_Condensed, Raleway } from "next/font/google";
+import BroadcastCurtain from "@/components/BroadcastCurtain";
 import "./globals.css";
 
 /** Matches the condensed heavy face in the BattleBots logo. */
@@ -19,9 +20,9 @@ const raleway = Raleway({
 });
 
 export const metadata: Metadata = {
-  title: "WRECKED — BattleBots Pro League Card Arena",
+  title: "Red Corner Blue Bot — BattleBots Pro League Card Arena",
   description:
-    "Draw two bots, trump a stat, let the AI ruin their day. Every number is real BattleBots Pro League data.",
+    "Two corners, one BattleBox. Draw two bots, trump a stat, and let an AI that has read their fight record ruin their day. Every number is real Pro League data.",
 };
 
 export const viewport: Viewport = {
@@ -37,7 +38,12 @@ export default function RootLayout({
       lang="en"
       className={`${barlow.variable} ${raleway.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-bb-black text-bb-bone">{children}</body>
+      <body className="min-h-full bg-bb-black text-bb-bone">
+        {children}
+        {/* Outside the page tree on purpose: the stinger has to outlive the
+            route change it is covering. */}
+        <BroadcastCurtain />
+      </body>
     </html>
   );
 }

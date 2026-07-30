@@ -59,7 +59,7 @@ export default function TaleOfTape({
 
   if (nothing) {
     return (
-      <div className="plate w-64 px-4 py-3 text-center">
+      <div className="plate w-full px-4 py-3 text-center">
         <div className="label">Tale of the tape</div>
         <p className="mt-2 text-[11px] text-bb-chrome">
           Neither bot appears in the {seasonLabel} fight log. The cards above are
@@ -70,7 +70,7 @@ export default function TaleOfTape({
   }
 
   return (
-    <div className="plate w-64 px-4 py-3">
+    <div className="plate w-full px-4 py-3">
       <div className="label">Tale of the tape</div>
       <p className="mt-1 text-[10px] leading-snug text-bb-steel">
         Prior season · {seasonLabel}
@@ -125,7 +125,7 @@ export default function TaleOfTape({
           <div className="label !text-[9px] !text-bb-blue">{b.name}</div>
           <ul className="mt-0.5">
             {bHistory.map((f, i) => (
-              <FightRow key={i} f={f} accent="#3aa0dc" />
+              <FightRow key={i} f={f} accent="#2f8fc9" />
             ))}
             {!bHistory.length && (
               <li className="py-0.5 text-[10px] text-bb-steel">No log</li>

@@ -1,5 +1,5 @@
 {
-  "name": "wrecked",
+  "name": "red-corner-blue-bot",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,7 +9,9 @@
     "lint": "eslint",
     "snapshot": "node scripts/snapshot.mjs",
     "dev:live": "BBPL_LIVE=1 next dev",
-    "matches": "node scripts/matches.mjs"
+    "matches": "node scripts/matches.mjs",
+    "announcer": "node scripts/announcer.mjs",
+    "stingers": "node scripts/stingers.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",

@@ -2,25 +2,32 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import type { Bot } from "@/lib/bbpl/client";
-import { TRUMP_STATS, type TrumpKey } from "@/lib/scoring";
+import { TRUMP_STATS } from "@/lib/scoring";
 import { WEAPON_COLORS } from "@/lib/weapons";
 
 /**
- * The top-trumps card.
+ * The roster card.
  *
- * Two sizes: `compact` for the roster grid, `full` for the arena. Pointer tilt
- * is done with CSS 3D transforms driven by a rAF-throttled mousemove — cheaper
- * than a spring library and keeps the whole grid at 60fps.
+ * Read-only by design: picking a *stat* is a move you make in the arena's
+ * command deck, not on a card. An earlier version put a button on every stat
+ * row of both cards, which meant six real moves rendered as twelve buttons,
+ * with nothing to tell you that "Win Rate" on the left and "Win Rate" on the
+ * right were the same click.
+ *
+ * Pointer tilt is CSS 3D driven by a rAF-throttled mousemove — cheaper than a
+ * spring library and keeps the whole grid at 60fps.
  */
 
 /**
- * WebGL only on the two arena cards. Twenty-four canvases in the roster grid
- * would be far slower than twenty-four <img>s for no visual gain.
+ * WebGL only on the cards you have actually picked. Twenty-four live canvases
+ * would be far slower than twenty-four <img>s; two or four is free, and it
+ * makes selecting a bot feel like waking it up.
  */
 const MeshPortrait = dynamic(() => import("@/components/MeshPortrait"), {
   ssr: false,
+  loading: () => null,
 });
 
 const FLAGS: Record<string, string> = {
@@ -43,58 +50,22 @@ function flagFor(country: string | null) {
     .join(" ");
 }
 
-interface Props {
-  bot: Bot;
-  size?: "compact" | "full";
-  /** Side tint in the arena: red (left) or blue (right). */
-  side?: "a" | "b";
-  selected?: boolean;
-  disabled?: boolean;
-  /** Highlights one stat row during a duel. */
-  activeStat?: TrumpKey | null;
-  /** Marks the active stat row as won/lost. */
-  statOutcome?: "win" | "lose" | "tie" | null;
-  onClick?: () => void;
-  onStatClick?: (key: TrumpKey) => void;
-  /** Remaining emotional HP, 0-100. Omit to hide the meter. */
-  feelings?: number;
-  /** 0-1; jitters the point cloud as the duel wears on. */
-  damage?: number;
-}
-
 export default function BotCard({
   bot,
-  size = "compact",
-  side,
   selected,
   disabled,
-  activeStat,
-  statOutcome,
   onClick,
-  onStatClick,
-  feelings,
-  damage = 0,
-}: Props) {
+}: {
+  bot: Bot;
+  selected?: boolean;
+  disabled?: boolean;
+  onClick?: () => void;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const raf = useRef<number | null>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
-  // Hold the mesh scattered for a beat, then let it assemble — the reveal is
-  // the moment, so it shouldn't already be resolved on first paint.
-  //
-  // Tracking *which* bot has resolved (rather than a boolean we reset) means no
-  // synchronous setState in the effect: swapping bots makes the derived value
-  // false immediately, with no extra render pass.
-  const [resolvedFor, setResolvedFor] = useState<string | null>(null);
-  useEffect(() => {
-    if (size !== "full") return;
-    const t = setTimeout(() => setResolvedFor(bot.slug), 260);
-    return () => clearTimeout(t);
-  }, [size, bot.slug]);
-  const meshResolved = resolvedFor === bot.slug;
-
-  const accent =
-    side === "a" ? "#e10600" : side === "b" ? "#3aa0dc" : WEAPON_COLORS[bot.weapon.class];
+  const accent = WEAPON_COLORS[bot.weapon.class];
 
   function onMove(e: React.PointerEvent) {
     if (raf.current) return;
@@ -110,8 +81,6 @@ export default function BotCard({
     });
   }
 
-  const full = size === "full";
-
   return (
     <div
       ref={ref}
@@ -126,12 +95,12 @@ export default function BotCard({
           onClick();
         }
       }}
+      aria-pressed={onClick ? Boolean(selected) : undefined}
       aria-label={onClick ? `Select ${bot.name}` : undefined}
       className={[
-        "group relative select-none",
+        "group relative w-full select-none",
         onClick && !disabled ? "cursor-pointer" : "",
         disabled ? "opacity-35 saturate-0" : "",
-        full ? "w-full max-w-[27rem]" : "w-full",
       ].join(" ")}
       style={{ perspective: "1200px" }}
     >
@@ -154,8 +123,7 @@ export default function BotCard({
 
         <article
           className={[
-            "scanlines relative overflow-hidden",
-            "border bg-bb-panel",
+            "scanlines relative overflow-hidden border bg-bb-panel",
             selected ? "border-transparent" : "border-bb-steel",
           ].join(" ")}
           style={{
@@ -195,7 +163,7 @@ export default function BotCard({
 
           {/* ── Portrait ── */}
           <div
-            className={["relative w-full overflow-hidden", full ? "h-56" : "h-40"].join(" ")}
+            className="relative h-40 w-full overflow-hidden"
             style={{
               background: `radial-gradient(70% 90% at 50% 100%, ${accent}33, #07080a 72%)`,
             }}
@@ -212,11 +180,10 @@ export default function BotCard({
                 WebkitMaskImage: "linear-gradient(to top, #000 0%, transparent 75%)",
               }}
             />
-            {full ? (
+            {selected ? (
               <MeshPortrait
                 src={bot.image}
-                resolved={meshResolved}
-                damage={damage}
+                accent={accent}
                 className="absolute inset-0"
               />
             ) : (
@@ -240,7 +207,7 @@ export default function BotCard({
           {/* ── Nameplate ── */}
           <div className="relative border-y border-bb-steel bg-bb-black/60 px-3 py-2">
             <h3
-              className={["display truncate", full ? "text-4xl" : "text-2xl"].join(" ")}
+              className="display truncate text-2xl"
               style={{ textShadow: `0 0 22px ${accent}66` }}
             >
               {bot.name}
@@ -283,70 +250,27 @@ export default function BotCard({
           <ul className="divide-y divide-bb-steel/60">
             {TRUMP_STATS.map((stat) => {
               const v = stat.get(bot);
-              const isActive = activeStat === stat.key;
-              const playable = !!onStatClick && v !== null;
-              const tone =
-                isActive && statOutcome === "win"
-                  ? "bg-emerald-500/15 text-emerald-300"
-                  : isActive && statOutcome === "lose"
-                    ? "bg-red-500/15 text-red-300"
-                    : isActive
-                      ? "bg-white/10"
-                      : "";
               return (
-                <li key={stat.key}>
-                  <button
-                    type="button"
-                    disabled={!playable}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (playable) onStatClick(stat.key);
-                    }}
-                    title={stat.hint}
+                <li
+                  key={stat.key}
+                  title={stat.hint}
+                  className="flex items-center justify-between gap-2 px-3 py-1.5"
+                >
+                  <span className="label !text-[10px] !tracking-wider">
+                    {stat.label}
+                  </span>
+                  <span
                     className={[
-                      "flex w-full items-center justify-between gap-2 px-3 text-left transition-colors",
-                      full ? "py-2" : "py-1.5",
-                      playable ? "hover:bg-white/10 cursor-pointer" : "cursor-default",
-                      tone,
+                      "stencil text-base tabular-nums",
+                      v === null ? "text-bb-steel" : "",
                     ].join(" ")}
                   >
-                    <span className="label !text-[10px] !tracking-wider">
-                      {stat.label}
-                    </span>
-                    <span
-                      className={[
-                        "stencil tabular-nums",
-                        full ? "text-xl" : "text-base",
-                        v === null ? "text-bb-steel" : "",
-                      ].join(" ")}
-                    >
-                      {v === null ? "NO DATA" : stat.format(v)}
-                    </span>
-                  </button>
+                    {v === null ? "NO DATA" : stat.format(v)}
+                  </span>
                 </li>
               );
             })}
           </ul>
-
-          {/* ── Feelings meter ── */}
-          {feelings !== undefined && (
-            <div className="border-t border-bb-steel px-3 py-2">
-              <div className="mb-1 flex items-center justify-between">
-                <span className="label !text-[9px]">Feelings</span>
-                <span className="stencil text-sm">{feelings}</span>
-              </div>
-              <div className="h-2 w-full bg-bb-black">
-                <div
-                  className="h-full transition-[width] duration-700 ease-out"
-                  style={{
-                    width: `${feelings}%`,
-                    background:
-                      feelings > 60 ? "#33d17a" : feelings > 25 ? "#f5a623" : "#e10600",
-                  }}
-                />
-              </div>
-            </div>
-          )}
         </article>
       </div>
     </div>

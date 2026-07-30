@@ -22,7 +22,7 @@ const GROUPS = ["A", "B", "C", "D", "E", "F"];
 const OUT = join(dirname(fileURLToPath(import.meta.url)), "..", "src", "data", "snapshot");
 
 const headers = {
-  "User-Agent": "Mozilla/5.0 (compatible; WreckedArena/1.0)",
+  "User-Agent": "Mozilla/5.0 (compatible; RedCornerBlueBot/1.0)",
   ...(TOKEN ? { Authorization: `Bearer ${TOKEN}` } : {}),
 };
 
