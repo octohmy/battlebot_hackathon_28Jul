@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { getBots } from "@/lib/bbpl/client";
-import { buildMessages, type AiMode } from "@/lib/ai/prompts";
+import { buildMessages, type AiMode, type Situation } from "@/lib/ai/prompts";
 import type { TrumpKey } from "@/lib/scoring";
 
 /**
@@ -21,6 +21,41 @@ const HITS = new Map<string, number[]>();
 const WINDOW_MS = 60_000;
 const MAX_PER_WINDOW = 20;
 
+/**
+ * Coerces the client's account of the fight into numbers we are willing to put
+ * in a prompt.
+ *
+ * Anything missing, non-finite or out of range fails the whole thing back to
+ * `null` — a live read with a garbled scoreline is worse than a preview, and
+ * silently clamping nonsense into range would produce confident commentary
+ * about a fight that is not happening.
+ */
+function readSituation(raw: unknown): Situation | null {
+  if (!raw || typeof raw !== "object") return null;
+  const src = raw as Record<string, unknown>;
+  const int = (key: string, max: number): number | null => {
+    const v = src[key];
+    if (typeof v !== "number" || !Number.isFinite(v)) return null;
+    const n = Math.round(v);
+    return n >= 0 && n <= max ? n : null;
+  };
+  const round = int("round", 12);
+  const aWins = int("aWins", 12);
+  const bWins = int("bWins", 12);
+  const aMorale = int("aMorale", 100);
+  const bMorale = int("bMorale", 100);
+  if (
+    round === null ||
+    aWins === null ||
+    bWins === null ||
+    aMorale === null ||
+    bMorale === null
+  ) {
+    return null;
+  }
+  return { round, aWins, bWins, aMorale, bMorale };
+}
+
 function rateLimited(ip: string): boolean {
   const now = Date.now();
   const recent = (HITS.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
@@ -40,7 +75,14 @@ export async function POST(req: NextRequest) {
     return Response.json({ error: "Slow down a moment." }, { status: 429 });
   }
 
-  let body: { a?: string; b?: string; mode?: string; stat?: string; target?: string };
+  let body: {
+    a?: string;
+    b?: string;
+    mode?: string;
+    stat?: string;
+    target?: string;
+    situation?: unknown;
+  };
   try {
     body = await req.json();
   } catch {
@@ -65,6 +107,7 @@ export async function POST(req: NextRequest) {
     mode,
     stat: (body.stat as TrumpKey) ?? null,
     target: body.target === "a" || body.target === "b" ? body.target : null,
+    situation: readSituation(body.situation),
   });
 
   const upstream = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -80,8 +123,11 @@ export async function POST(req: NextRequest) {
       model: process.env.OPENROUTER_MODEL ?? "google/gemini-3.5-flash-lite",
       messages,
       stream: true,
-      temperature: mode === "analyse" || mode === "predict" ? 0.4 : 0.95,
-      max_tokens: 220,
+      temperature: mode === "analyse" || mode === "predict" ? 0.4 : 1,
+      // A ceiling, not a target. The prompt asks the burns for one sentence;
+      // this is the backstop that stops a chatty generation running to a
+      // paragraph and costing a voice read of a paragraph with it.
+      max_tokens: mode === "taunt" || mode === "roast" ? 70 : 180,
     }),
   });
 

@@ -222,6 +222,32 @@ body {
   background: rgba(7, 8, 10, 0.72);
 }
 
+/* Round resolution: the two corners thrown at each other, meeting in the
+   middle, and the hit landing on the frame they meet. */
+@keyframes clash-in-a {
+  from { opacity: 0; transform: translateX(-60px) skewX(6deg); }
+  to   { opacity: 1; transform: translateX(0) skewX(0); }
+}
+@keyframes clash-in-b {
+  from { opacity: 0; transform: translateX(60px) skewX(-6deg); }
+  to   { opacity: 1; transform: translateX(0) skewX(0); }
+}
+@keyframes clash-hit {
+  0%   { opacity: 0; transform: scale(2.4); }
+  45%  { opacity: 1; transform: scale(0.88); }
+  70%  { transform: scale(1.12); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* A weapon in the arsenal charging up as it fires. */
+@keyframes arm {
+  0%, 100% { box-shadow: inset 0 0 0 0 transparent; }
+  50% { box-shadow: inset 0 0 26px -8px #e10600; }
+}
+.arming {
+  animation: arm 900ms ease-in-out infinite;
+}
+
 /* Turn-change takeover. */
 @keyframes fade-in {
   from { opacity: 0; }
@@ -321,9 +347,15 @@ body {
   .flicker,
   .sheen::before,
   .scan-line,
+  .arming,
   .marquee {
     animation: none !important;
   }
+  /* The clash still has to read as two things colliding — that is the whole
+     explanation — so it keeps its beats and loses only the travel. */
+  @keyframes clash-in-a { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes clash-in-b { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes clash-hit { from { opacity: 0; } to { opacity: 1; } }
   /* The stinger is not exempt: it still has to cover the screen, that being
      its whole job. It just fades instead of travelling — see the
      reduced-motion branch in BroadcastCurtain, which picks the animation

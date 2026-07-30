@@ -384,6 +384,17 @@ interface Control {
   targetHover: number;
   /** Set by a double-click to ease everything back to the front view. */
   recentring: boolean;
+  /**
+   * Impact energy, 1 at the moment of a hit and decaying to 0.
+   *
+   * The whole point of a burn landing is that words did something physical, so
+   * a hit does not play an animation over the top of the machine — it goes
+   * into the same integrator the drag does, and the cloud blows apart, coasts
+   * off the shove, and pulls itself back together.
+   */
+  shock: number;
+  /** Which way the hit came from: -1 pushes left, 1 pushes right. */
+  shockDir: number;
 }
 
 /** What the renderer needs out of a frame of input. */
@@ -391,6 +402,8 @@ interface Pose {
   yaw: number;
   pitch: number;
   hover: number;
+  shock: number;
+  shockDir: number;
 }
 
 function Cloud({
@@ -473,15 +486,24 @@ function Cloud({
     const dt = Math.min(delta, 0.05);
 
     m.uniforms.uTime.value = state.clock.elapsedTime;
-    const target = resolved ? 1 : 0;
-    const cur = m.uniforms.uProgress.value as number;
-    m.uniforms.uProgress.value = cur + (target - cur) * Math.min(1, dt * 3.2);
-    m.uniforms.uDamage.value = damage;
 
     const pose = advance(dt);
+
+    // A hit drags the assembly target back toward "scattered", so the cloud
+    // comes apart and then re-forms through the same easing that assembles it
+    // on arrival — one mechanism, not a second animation bolted alongside.
+    const target = (resolved ? 1 : 0) - pose.shock * 0.6;
+    const cur = m.uniforms.uProgress.value as number;
+    m.uniforms.uProgress.value = cur + (target - cur) * Math.min(1, dt * 3.2);
+    m.uniforms.uDamage.value = Math.min(1, damage + pose.shock * 0.5);
+
     m.uniforms.uHover.value = pose.hover;
     g.rotation.y = pose.yaw;
-    g.rotation.x = pose.pitch;
+    g.rotation.x = pose.pitch + pose.shock * 0.12;
+    // Knocked off its feet, and swinging back through centre as it recovers.
+    g.position.x = pose.shock * pose.shockDir * 0.42;
+    g.position.y = -pose.shock * 0.08;
+    g.rotation.z = pose.shock * pose.shockDir * -0.16;
   });
 
   // Note: no dispose-on-unmount. The BufferAttributes wrap arrays owned by the
@@ -518,12 +540,18 @@ export default function MeshPortrait({
   height = 2.2,
   distance = 3.4,
   showHint = false,
+  hit = 0,
+  hitFrom = -1,
   className,
 }: {
   src: string;
   /** False scatters the points; true assembles the image. */
   resolved?: boolean;
   damage?: number;
+  /** Bump this to knock the machine sideways. A counter, not a flag. */
+  hit?: number;
+  /** Which side the blow came from: -1 shoves left, 1 shoves right. */
+  hitFrom?: -1 | 1;
   /** Rim-light colour along the silhouette. */
   accent?: string;
   /** Slow idle rotation. */
@@ -552,8 +580,28 @@ export default function MeshPortrait({
     hover: 0,
     targetHover: 0,
     recentring: false,
+    shock: 0,
+    shockDir: -1,
   });
   const last = useRef({ x: 0, y: 0 });
+
+  /**
+   * Take a hit.
+   *
+   * Fired by bumping `hit` — a counter, not a boolean, so two burns in a row
+   * are two hits rather than one stuck flag. The impulse is added to the same
+   * throw velocity a drag produces, which is why the machine coasts away from
+   * the blow instead of snapping back to centre.
+   */
+  useEffect(() => {
+    if (!hit) return;
+    const c = control.current;
+    c.shock = 1;
+    c.shockDir = hitFrom;
+    c.recentring = false;
+    c.vx += 0.075 * hitFrom;
+    c.vy += 0.02;
+  }, [hit, hitFrom]);
 
   /**
    * One step of the input model, called from inside the render loop.
@@ -593,10 +641,17 @@ export default function MeshPortrait({
       c.px += (c.targetPx - c.px) * Math.min(1, dt * 5);
       c.py += (c.targetPy - c.py) * Math.min(1, dt * 5);
 
+      // Recovery is slower than the hit, so it reads as reassembling rather
+      // than as a flicker.
+      c.shock += (0 - c.shock) * Math.min(1, dt * 2.4);
+      if (c.shock < 0.002) c.shock = 0;
+
       return {
         yaw: c.yaw + c.px * 0.5,
         pitch: Math.max(-0.7, Math.min(0.7, c.pitch + c.py * 0.3)),
         hover: c.hover,
+        shock: c.shock,
+        shockDir: c.shockDir,
       };
     },
     [spin],

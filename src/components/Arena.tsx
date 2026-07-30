@@ -6,13 +6,17 @@ import Wordmark from "@/components/Wordmark";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import BattleHud, { callTurn } from "@/components/BattleHud";
 import BotCard from "@/components/BotCard";
+import BroadcastDesk from "@/components/BroadcastDesk";
+import ClashReveal from "@/components/ClashReveal";
 import DamageOverlay from "@/components/DamageOverlay";
 import Fighter from "@/components/Fighter";
+import Momentum from "@/components/Momentum";
 import SoundPrompt from "@/components/SoundPrompt";
 import StatRadar from "@/components/StatRadar";
 import TaleOfTape, { type TapeData } from "@/components/TaleOfTape";
 import TelemetryDrawer from "@/components/TelemetryDrawer";
 import TurnBanner from "@/components/TurnBanner";
+import WalkIn from "@/components/WalkIn";
 import type { Bot, DataSource } from "@/lib/bbpl/client";
 import {
   announceMatchup,
@@ -23,12 +27,24 @@ import {
 import { play, setMuted, unlockAudio } from "@/lib/audio";
 import { cut } from "@/lib/broadcast";
 import { playStinger, stopCommentary } from "@/lib/commentary";
-import { bell, buzzer, fanfare, impact, levelUp } from "@/lib/synth";
+import {
+  bell,
+  buzzer,
+  crowdPop,
+  fanfare,
+  impact,
+  levelUp,
+  setCrowdLevel,
+  startCrowd,
+  stopCrowd,
+} from "@/lib/synth";
 import { commonOpponents, fightsFor, headToHead, SEASON_LABEL } from "@/lib/fights";
 import {
   bestStatFor,
+  DOMINANT,
   isTrumpable,
   radarAxes,
+  severityOf,
   TRUMP_STATS,
 } from "@/lib/scoring";
 import { SIDE } from "@/lib/theme";
@@ -37,6 +53,7 @@ import {
   benchBot,
   duelLeader,
   MAX_FEELINGS,
+  momentum,
   scoreboard,
   useArena,
   type Format,
@@ -87,6 +104,7 @@ export default function Arena({
     tagIn,
     reset,
     setThinking,
+    setAutoOpponent,
   } = state;
 
   const [picks, setPicks] = useState<Bot[]>([]);
@@ -171,14 +189,36 @@ export default function Arena({
     setPicks(chosen);
   }
 
-  // ── Reveal beat ─────────────────────────────────────────────────────────
+  // ── Walk-in ─────────────────────────────────────────────────────────────
+  // The announcer's call is fired here rather than inside the walk-in, because
+  // it must survive the walk-in being skipped: cutting the visuals short is a
+  // demo convenience, cutting the voice off mid-name is a glitch.
   useEffect(() => {
     if (phase !== "reveal" || !a || !b) return;
     play("reveal");
+    startCrowd();
+    setCrowdLevel(0.35);
     void announceMatchup(a.slug, a.name, b.slug, b.name).then(setSubtitle);
-    const t = setTimeout(reveal, 1400);
-    return () => clearTimeout(t);
-  }, [phase, reveal, a, b]);
+  }, [phase, a, b]);
+
+  // The room, reacting to the state of the fight rather than to the clock:
+  // louder and brighter as the lead grows, the damage mounts and the rounds
+  // run out.
+  useEffect(() => {
+    // Leaving the fight empties the building. Without this the bed kept
+    // running under the roster, because the arena never unmounts on a quit —
+    // it just re-renders as the selection screen.
+    if (phase === "select") {
+      stopCrowd(600);
+      return;
+    }
+    const swing = Math.abs(momentum(playedRounds, teams, feelings));
+    setCrowdLevel(
+      Math.min(1, 0.25 + swing * 0.5 + damage * 0.3 + (playedRounds.length / 6) * 0.25),
+    );
+  }, [phase, playedRounds, teams, feelings, damage]);
+
+  useEffect(() => () => stopCrowd(400), []);
 
   // ── The machine's turn ──────────────────────────────────────────────────
   // It plays the stat where it holds the biggest edge over the field, but only
@@ -209,10 +249,14 @@ export default function Arena({
     play("crack");
     const sting = setTimeout(() => play("win"), 220);
     const winner = lastResult.outcome === "a" ? a : b;
-    const hi = Math.max(lastResult.aValue ?? 0, lastResult.bValue ?? 0) || 1;
-    const decisive = lastResult.margin / hi > 0.4;
+    const decisive = severityOf(lastResult) > DOMINANT;
+    // The room reacts on the beat the clash lands, not on the beat it opens.
+    const roar = setTimeout(() => crowdPop(decisive ? 1 : 0.55), 1180);
     void announceRound(winner.slug, { decisive }).then(setSubtitle);
-    return () => clearTimeout(sting);
+    return () => {
+      clearTimeout(sting);
+      clearTimeout(roar);
+    };
   }, [phase, lastResult, a, b]);
 
   // ── Final call ──────────────────────────────────────────────────────────
@@ -249,7 +293,10 @@ export default function Arena({
       if (sounded.current.has(p.id)) continue;
       sounded.current.add(p.id);
       if (p.kind === "level") levelUp();
-      if (p.kind === "ko") impact(0.9);
+      if (p.kind === "ko") {
+        impact(0.9);
+        crowdPop(1);
+      }
     }
   }, [pops]);
 
@@ -302,13 +349,38 @@ export default function Arena({
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
-            <FormatToggle
+          <div className="flex flex-wrap items-end gap-3">
+            <Choice
+              label="Format"
               value={pendingFormat}
+              options={[
+                { value: "1v1", label: "1v1", hint: "One bot each, best of six" },
+                {
+                  value: "2v2",
+                  label: "2v2",
+                  hint: "Two bots each. A stopped bot forces its partner in; lose both corners and the fight is over.",
+                },
+              ]}
               onChange={(f) => {
                 play("click");
                 setPendingFormat(f);
                 setPicks([]);
+              }}
+            />
+            <Choice
+              label="Blue corner"
+              value={autoOpponent ? "ai" : "human"}
+              options={[
+                { value: "ai", label: "AI", hint: "The machine picks the stat on its turn. You play red." },
+                {
+                  value: "human",
+                  label: "2 players",
+                  hint: "Hotseat: red and blue both choose their own stat, taking turns at the same keyboard.",
+                },
+              ]}
+              onChange={(v) => {
+                play("click");
+                setAutoOpponent(v === "ai");
               }}
             />
             <button
@@ -397,6 +469,16 @@ export default function Arena({
     <main className="flex h-[100dvh] flex-col overflow-hidden">
       <DamageOverlay />
 
+      {/* The walk-in. It owns the reveal phase; `reveal()` moves the fight on
+          when it finishes or is skipped. */}
+      {phase === "reveal" && <WalkIn a={a} b={b} onDone={reveal} />}
+
+      {/* The round, resolved in full. Keyed on the round so each one is a
+          fresh run of the beats rather than a component being reused. */}
+      {phase === "resolve" && (
+        <ClashReveal key={playedRounds.length} a={a} b={b} />
+      )}
+
       {phase === "turn-intro" && (
         <TurnBanner
           key={round}
@@ -469,6 +551,13 @@ export default function Arena({
               {score.b}
             </span>
           </div>
+
+          <BroadcastDesk a={a} b={b} onSubtitle={setSubtitle} />
+
+          <Momentum
+            value={momentum(playedRounds, teams, feelings)}
+            rounds={playedRounds}
+          />
 
           <Scorecard rounds={playedRounds} />
 
@@ -632,33 +721,46 @@ function Aftermath({
   );
 }
 
-function FormatToggle({
+/**
+ * A labelled segmented control.
+ *
+ * The label above it is the point. Both of the choices on this screen — the
+ * format, and who is behind the blue corner — used to be either unlabelled or
+ * (in the case of the opponent) not offered at all, which left "who am I
+ * playing as?" to be guessed at from inside the fight. It is a pre-fight
+ * decision, so it is asked before the fight, in words.
+ */
+function Choice<T extends string>({
+  label,
   value,
+  options,
   onChange,
 }: {
-  value: Format;
-  onChange: (f: Format) => void;
+  label: string;
+  value: T;
+  options: { value: T; label: string; hint: string }[];
+  onChange: (v: T) => void;
 }) {
   return (
-    <div className="flex border border-bb-steel">
-      {(["1v1", "2v2"] as const).map((f) => (
-        <button
-          key={f}
-          onClick={() => onChange(f)}
-          className="display px-4 py-3 text-xl transition-colors"
-          style={{
-            background: value === f ? "#e8ecf1" : "transparent",
-            color: value === f ? "#07080a" : "#9aa4b0",
-          }}
-          title={
-            f === "1v1"
-              ? "One bot each, best of six"
-              : "Two bots each. A stopped bot forces its partner in; lose both corners and the fight is over."
-          }
-        >
-          {f}
-        </button>
-      ))}
+    <div>
+      <div className="label mb-1 !text-[9px]">{label}</div>
+      <div className="flex border border-bb-steel">
+        {options.map((opt) => (
+          <button
+            key={opt.value}
+            onClick={() => onChange(opt.value)}
+            title={opt.hint}
+            aria-pressed={value === opt.value}
+            className="display px-4 py-3 text-xl transition-colors"
+            style={{
+              background: value === opt.value ? "#e8ecf1" : "transparent",
+              color: value === opt.value ? "#07080a" : "#9aa4b0",
+            }}
+          >
+            {opt.label}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
@@ -703,9 +805,14 @@ function TopBar({ source, onQuit }: { source: DataSource; onQuit?: () => void })
             const next = !muted;
             setMuted(next);
             toggleMute();
-            if (!next) {
+            // The crowd is a running loop rather than a one-shot, so muting
+            // has to reach in and stop it, not merely stop starting it.
+            if (next) {
+              stopCrowd(300);
+            } else {
               unlockAudio();
               play("click");
+              startCrowd();
             }
           }}
           className={[

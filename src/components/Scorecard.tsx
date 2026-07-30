@@ -1,6 +1,6 @@
 "use client";
 
-import { TRUMP_BY_KEY } from "@/lib/scoring";
+import { DOMINANT, severityOf, TRUMP_BY_KEY } from "@/lib/scoring";
 import { SIDE } from "@/lib/theme";
 import { MAX_ROUNDS, type RoundLog, type Side } from "@/lib/store";
 
@@ -30,9 +30,7 @@ export interface ScoredRound {
 /** Ten-point-must, with a 10-8 for a dominant round. */
 export function scoreRounds(rounds: RoundLog[]): ScoredRound[] {
   return rounds.map((r, i) => {
-    const hi = Math.max(r.result.aValue ?? 0, r.result.bValue ?? 0) || 1;
-    const dominant = r.result.margin / hi > 0.4;
-    const low = dominant ? 8 : 9;
+    const low = severityOf(r.result) > DOMINANT ? 8 : 9;
     return {
       round: i + 1,
       stat: TRUMP_BY_KEY[r.stat].short,

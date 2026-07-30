@@ -1,12 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import type { Bot } from "@/lib/bbpl/client";
-import { commentate, playStinger, prefetchLine } from "@/lib/commentary";
+import { commentate, playStinger } from "@/lib/commentary";
 import { play, unlockAudio } from "@/lib/audio";
+import { crowdPop, impact } from "@/lib/synth";
 import { isTrumpable, TRUMP_BY_KEY, TRUMP_STATS, type TrumpKey } from "@/lib/scoring";
 import { SIDE } from "@/lib/theme";
-import { useArena, type AiMode, type Side } from "@/lib/store";
+import { burnDamage, useArena, type AiMode, type Side } from "@/lib/store";
 
 /**
  * The command deck.
@@ -28,47 +29,38 @@ import { useArena, type AiMode, type Side } from "@/lib/store";
  * button says so.
  */
 
-const ACTIONS: {
-  mode: AiMode;
+/**
+ * The arsenal — weapons only.
+ *
+ * Analyse and Predict used to sit here too, which quietly taught everyone that
+ * this panel was "the AI buttons" rather than "the things that hurt". They are
+ * commentary, not ordnance, and they have moved to the broadcast desk where
+ * they arrive on their own. What is left is the two moves that are genuinely
+ * fired at a machine and genuinely take morale off it, each wearing its damage
+ * on its face in the same units as the meter it drains.
+ */
+const WEAPONS: {
+  mode: Extract<AiMode, "taunt" | "roast">;
   label: string;
   blurb: string;
-  aimed: boolean;
-  /** Which pre-voiced reaction fires the moment the text lands. */
-  stinger: "burn" | "read";
-  /** Safe to generate before it is asked for. */
-  preparable: boolean;
+  /** Sigil, so the two are told apart at a glance rather than by reading. */
+  icon: string;
+  /** Damage, in the units of the morale meter. */
+  cost: string;
 }[] = [
   {
     mode: "taunt",
     label: "Trash talk",
-    blurb: "Smack talk aimed at one bot",
-    aimed: true,
-    stinger: "burn",
-    preparable: false,
+    blurb: "Cheap shot, straight to its face",
+    icon: "🗯",
+    cost: "−10 morale",
   },
   {
     mode: "roast",
     label: "Roast",
-    blurb: "Savage burn from its real failures",
-    aimed: true,
-    stinger: "burn",
-    preparable: false,
-  },
-  {
-    mode: "analyse",
-    label: "Analyse",
-    blurb: "Who the numbers favour, and why",
-    aimed: false,
-    stinger: "read",
-    preparable: true,
-  },
-  {
-    mode: "predict",
-    label: "Predict",
-    blurb: "A called winner with a reason",
-    aimed: false,
-    stinger: "read",
-    preparable: true,
+    blurb: "Its worst numbers, read back to it",
+    icon: "💀",
+    cost: "−18 morale",
   },
 ];
 
@@ -96,6 +88,7 @@ export default function BattleHud({
     setAi,
     playStat,
     nextRound,
+    shove,
     hurtFeelings,
     awardXp,
     bumpDamage,
@@ -103,115 +96,57 @@ export default function BattleHud({
 
   const [target, setTarget] = useState<Side>("b");
   const abort = useRef<AbortController | null>(null);
-  /** mode → text generated ahead of time for this exact matchup. */
-  const prepared = useRef<Map<AiMode, string>>(new Map());
-  /**
-   * Tagged with the matchup it belongs to, so a new pairing invalidates it by
-   * comparison rather than by a reset — clearing it from the effect body would
-   * be a synchronous setState, and a cascading render.
-   */
-  const matchup = `${a.slug}:${b.slug}`;
-  const [ready, setReady] = useState<{ matchup: string; modes: AiMode[] }>({
-    matchup,
-    modes: [],
-  });
-  const readyModes = ready.matchup === matchup ? ready.modes : [];
 
   const playerTurn = phase === "choose-stat" && (turn === "a" || !autoOpponent);
 
-  // ── Pre-generation ──────────────────────────────────────────────────────
-  // Analyse and Predict are a pure function of the matchup, so they are
-  // fetched the moment the matchup exists. By the time anyone reaches for the
-  // button the text is already sitting in memory.
-  useEffect(() => {
-    prepared.current = new Map();
-    const ctl = new AbortController();
-
-    for (const action of ACTIONS.filter((x) => x.preparable)) {
-      void (async () => {
-        try {
-          const res = await fetch("/api/ai", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              a: a.slug,
-              b: b.slug,
-              mode: action.mode,
-              stat: null,
-              target: null,
-            }),
-            signal: ctl.signal,
-          });
-          if (!res.ok || !res.body) return;
-          const text = await res.text();
-          if (ctl.signal.aborted || text.trim().length < 12) return;
-          prepared.current.set(action.mode, text.trim());
-          setReady((prev) =>
-            prev.matchup === matchup
-              ? { matchup, modes: [...prev.modes, action.mode] }
-              : { matchup, modes: [action.mode] },
-          );
-          // Warm the voice too, so the read starts the instant it is asked for.
-          prefetchLine(text.trim().split(/(?<=[.!?])\s/)[0] ?? "");
-        } catch {
-          // A failed warm-up is invisible: the button just runs live instead.
-        }
-      })();
-    }
-
-    return () => ctl.abort();
-  }, [a.slug, b.slug, matchup]);
+  /**
+   * The corner the person at the keyboard is playing.
+   *
+   * Against the machine that is always red. In hotseat both corners are human,
+   * so "you" is whoever is on the clock — which is what makes "you lead" on a
+   * stat button a true statement for both players rather than for one of them.
+   */
+  const mine: Side = autoOpponent ? "a" : turn;
+  /** Who is behind each corner, said plainly. */
+  const seat = (side: Side) =>
+    mine === side ? "You" : autoOpponent ? "AI" : side === "a" ? "Red player" : "Blue player";
 
   // ── Running an action ───────────────────────────────────────────────────
-  const run = useCallback(
-    async (mode: AiMode, aimed: boolean, stinger: "burn" | "read") => {
+  const fire = useCallback(
+    async (mode: "taunt" | "roast") => {
       unlockAudio();
       play("pill");
       abort.current?.abort();
       const ctl = new AbortController();
       abort.current = ctl;
 
-      const aimedAt = aimed ? target : null;
+      const aimedAt = target;
       setAi({ aiMode: mode, aiLoading: true, aiText: "", aiTarget: aimedAt });
 
-      // A pre-generated line only applies when nothing has been aimed and no
-      // stat has been played since — otherwise it would be stale context.
-      const canned =
-        !aimed && !activeStat ? prepared.current.get(mode) : undefined;
-
+      /**
+       * The blow, once the words exist.
+       *
+       * Order matters: the shove goes in first so the machine is already
+       * moving when the morale number floats off it.
+       */
       const landed = (text: string) => {
-        if (!aimedAt || text.length < 20) return;
+        if (text.length < 20) return;
         const victim = aimedAt === "a" ? a : b;
-        // Longer, more specific burns hurt more.
-        const sting = Math.min(22, 8 + Math.round(text.length / 22));
-        hurtFeelings(victim.slug, mode === "roast" ? sting : Math.round(sting * 0.6), aimedAt);
-        awardXp(aimedAt === "a" ? "b" : "a", mode === "roast" ? 25 : 15, "burn landed");
+        const { amount, cited } = burnDamage(text, mode === "roast");
+        shove(aimedAt);
+        impact(cited ? 0.8 : 0.55);
+        crowdPop(cited ? 1 : 0.6);
+        hurtFeelings(victim.slug, amount, aimedAt, cited ? "receipts" : undefined);
+        awardXp(
+          aimedAt === "a" ? "b" : "a",
+          cited ? 30 : 15,
+          cited ? "burn + receipts" : "burn landed",
+        );
         bumpDamage(0.06);
       };
 
       try {
-        if (canned) {
-          // Type it out so it still reads as arriving, then voice it.
-          setAi({ aiText: "", aiLoading: true });
-          const { stinger: said } = await commentate(stinger, async (onText) => {
-            for (let i = 4; i <= canned.length; i += 3) {
-              if (ctl.signal.aborted) return canned;
-              const slice = canned.slice(0, i);
-              setAi({ aiText: slice });
-              onText(slice);
-              await new Promise((r) => setTimeout(r, 8));
-            }
-            setAi({ aiText: canned });
-            onText(canned);
-            return canned;
-          });
-          onSubtitle(said);
-          setAi({ aiLoading: false });
-          landed(canned);
-          return;
-        }
-
-        const { stinger: said, spoken } = await commentate(stinger, async (onText) => {
+        const { stinger: said, spoken } = await commentate("burn", async (onText) => {
           const res = await fetch("/api/ai", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -256,7 +191,7 @@ export default function BattleHud({
         }
       }
     },
-    [a, b, activeStat, target, setAi, hurtFeelings, awardXp, bumpDamage, onSubtitle],
+    [a, b, activeStat, target, setAi, shove, hurtFeelings, awardXp, bumpDamage, onSubtitle],
   );
 
   const onPlayStat = (key: TrumpKey) => {
@@ -305,12 +240,27 @@ export default function BattleHud({
       </div>
 
       <div className="grid gap-3 px-4 pb-3 pt-2 lg:grid-cols-[1fr_22rem]">
-        {/* ── FIGHT: one button per stat, never duplicated ── */}
+        {/* ── TOP TRUMPS: one button per stat, never duplicated ── */}
         <div>
-          <div className="mb-1.5 flex items-baseline gap-2">
-            <h3 className="label !text-[10px] !text-bb-bone">Fight · pick a stat</h3>
+          <div className="mb-1 flex items-baseline gap-2">
+            <h3 className="label !text-[10px] !text-bb-bone">Top trumps · play a stat</h3>
             <span className="text-[10px] text-bb-steel">
-              Both cards&apos; real values, side by side. Winner takes the round.
+              Play the one you lead on. Winner takes the round.
+            </span>
+          </div>
+
+          {/* Whose column is whose. Without this the two numbers in each button
+              are just two numbers, and the colour coding is something you have
+              to already know. */}
+          <div className="mb-1 flex items-baseline justify-between gap-2 border-b border-bb-steel/60 pb-1">
+            <span className="display flex min-w-0 items-baseline gap-1.5 truncate text-sm">
+              <span style={{ color: SIDE.a.color }}>◀ {a.name}</span>
+              <span className="label !text-[8px]">{seat("a")}</span>
+            </span>
+            <span className="label !text-[8px] shrink-0">Rule</span>
+            <span className="display flex min-w-0 items-baseline justify-end gap-1.5 truncate text-sm">
+              <span className="label !text-[8px]">{seat("b")}</span>
+              <span style={{ color: SIDE.b.color }}>{b.name} ▶</span>
             </span>
           </div>
 
@@ -329,6 +279,15 @@ export default function BattleHud({
                     : (stat.higherWins ? av > bv : av < bv)
                       ? "a"
                       : "b";
+                // Called from the chooser's point of view: "you lead" is the
+                // only reading of this button that is actually a decision.
+                const verdict = !usable
+                  ? "No data"
+                  : leader === null
+                    ? "Dead heat"
+                    : leader === mine
+                      ? "You lead"
+                      : "You trail";
 
                 return (
                   <button
@@ -337,42 +296,72 @@ export default function BattleHud({
                     disabled={!enabled}
                     title={
                       usable
-                        ? stat.hint
+                        ? `${stat.hint}. ${stat.higherWins ? "Higher wins" : "Lower wins"}.`
                         : "battlebots.com has no career record for one of these bots"
                     }
                     className={[
-                      "group relative border px-2 py-1.5 text-left transition-all",
+                      "group relative border px-2 py-1 text-left transition-all",
                       enabled
-                        ? "border-bb-steel hover:border-bb-bone hover:bg-white/10 active:scale-[0.98] cursor-pointer"
-                        : "border-bb-steel/40 opacity-45 cursor-not-allowed",
+                        ? "cursor-pointer border-bb-steel hover:border-bb-bone hover:bg-white/10 active:scale-[0.98]"
+                        : "cursor-not-allowed border-bb-steel/40 opacity-45",
                       thinking && usable ? "scan-line" : "",
                     ].join(" ")}
+                    style={
+                      enabled && leader === mine
+                        ? { borderColor: `${SIDE[mine].color}99` }
+                        : undefined
+                    }
                   >
-                    <span className="label !text-[9px] !tracking-wider">
-                      {stat.label}
+                    <span className="flex items-baseline justify-between gap-1">
+                      <span className="label !text-[9px] !tracking-wider">{stat.label}</span>
+                      <span
+                        className="label !text-[8px] !tracking-normal"
+                        title={
+                          stat.higherWins
+                            ? "The bigger number takes this round"
+                            : "The smaller number takes this round — faster is deadlier"
+                        }
+                      >
+                        {stat.higherWins ? "▲ HIGH" : "▼ LOW"}
+                      </span>
                     </span>
+
                     <span className="mt-0.5 flex items-baseline justify-between gap-1">
                       <span
                         className="stencil text-lg tabular-nums"
                         style={{
                           color: leader === "a" ? SIDE.a.color : undefined,
-                          opacity: leader === "b" ? 0.55 : 1,
+                          opacity: leader === "b" ? 0.5 : 1,
                         }}
                       >
                         {av === null ? "—" : stat.format(av)}
+                        {leader === "a" && <span className="ml-0.5 text-[10px]">▲</span>}
                       </span>
-                      <span className="text-[9px] text-bb-steel">
-                        {stat.higherWins ? "HI" : "LO"}
-                      </span>
+                      <span className="text-[9px] text-bb-steel">vs</span>
                       <span
                         className="stencil text-lg tabular-nums"
                         style={{
                           color: leader === "b" ? SIDE.b.color : undefined,
-                          opacity: leader === "a" ? 0.55 : 1,
+                          opacity: leader === "a" ? 0.5 : 1,
                         }}
                       >
+                        {leader === "b" && <span className="mr-0.5 text-[10px]">▲</span>}
                         {bv === null ? "—" : stat.format(bv)}
                       </span>
+                    </span>
+
+                    <span
+                      className="label mt-0.5 block !text-[8px] !tracking-normal"
+                      style={{
+                        color:
+                          leader === null || !usable
+                            ? "#5a5f66"
+                            : leader === mine
+                              ? SIDE[mine].color
+                              : "#5a5f66",
+                      }}
+                    >
+                      {verdict}
                     </span>
                   </button>
                 );
@@ -381,71 +370,65 @@ export default function BattleHud({
           )}
         </div>
 
-        {/* ── RINGSIDE AI: always in the same place, always reachable ── */}
+        {/* ── ARSENAL: always in the same place, always reachable ── */}
         <div className="lg:border-l lg:border-bb-steel lg:pl-3">
-          <div className="mb-1.5 flex items-center justify-between gap-2">
-            <h3 className="label !text-[10px] !text-bb-bone">Ringside AI</h3>
-            <div className="flex items-center gap-1">
-              <span className="label !text-[9px]">Aim</span>
-              <div className="flex border border-bb-steel">
-                {(["a", "b"] as const).map((side) => {
-                  const bot = side === "a" ? a : b;
-                  const on = target === side;
-                  return (
-                    <button
-                      key={side}
-                      onClick={() => setTarget(side)}
-                      className="display max-w-[6rem] truncate px-2 py-0.5 text-xs transition-colors"
-                      style={{
-                        background: on ? SIDE[side].color : "transparent",
-                        color: on ? "#fff" : "#9aa4b0",
-                      }}
-                      title={`Point the trash talk and roasts at ${bot.name}`}
-                    >
-                      {bot.name}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+          <div className="mb-1.5 flex items-baseline gap-2">
+            <h3 className="label !text-[10px] !text-bb-bone">Arsenal</h3>
+            <span className="text-[10px] text-bb-steel">
+              AI weapons. Burns take real morale off the bot you fire at.
+            </span>
           </div>
 
-          <div className="grid grid-cols-2 gap-1.5">
-            {ACTIONS.map((action) => (
-              <button
-                key={action.mode}
-                onClick={() => run(action.mode, action.aimed, action.stinger)}
-                disabled={aiLoading}
-                title={action.blurb}
-                className={[
-                  "relative border px-2 py-1.5 text-left transition-all",
-                  aiMode === action.mode
-                    ? "border-bb-red bg-bb-red/20"
-                    : "border-bb-steel hover:border-bb-chrome hover:bg-white/5",
-                  aiLoading ? "cursor-wait opacity-60" : "cursor-pointer",
-                ].join(" ")}
-              >
-                <span className="display flex items-center gap-1.5 text-lg leading-none">
-                  {action.label}
-                  {readyModes.includes(action.mode) && (
-                    <span
-                      className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-400"
-                      title="Pre-generated for this matchup — this one is instant"
-                    />
-                  )}
-                </span>
-                <span className="mt-0.5 block text-[9px] leading-tight text-bb-chrome">
-                  {action.blurb}
-                </span>
-                {action.aimed && (
+          <TargetLock
+            a={a}
+            b={b}
+            target={target}
+            mine={mine}
+            onSwap={() => {
+              play("click");
+              setTarget(target === "a" ? "b" : "a");
+            }}
+          />
+
+          <div className="mt-1.5 grid grid-cols-2 gap-1.5">
+            {WEAPONS.map((weapon) => {
+              const firing = aiLoading && aiMode === weapon.mode;
+              return (
+                <button
+                  key={weapon.mode}
+                  onClick={() => fire(weapon.mode)}
+                  disabled={aiLoading}
+                  title={`${weapon.blurb} — fired at ${(target === "a" ? a : b).name}`}
+                  className={[
+                    "relative border px-2 py-2 text-left transition-all",
+                    aiMode === weapon.mode
+                      ? "border-bb-red bg-bb-red/20"
+                      : "border-bb-steel hover:border-bb-chrome hover:bg-white/5",
+                    aiLoading ? "cursor-wait opacity-60" : "cursor-pointer",
+                    firing ? "arming" : "",
+                  ].join(" ")}
+                >
+                  <span className="display flex items-center gap-1.5 text-xl leading-none">
+                    <span aria-hidden className="text-base">
+                      {weapon.icon}
+                    </span>
+                    {weapon.label}
+                  </span>
+
+                  {/* Damage on the face of the button, in the meter's units. */}
                   <span
-                    className="absolute right-1 top-1 h-1.5 w-1.5"
-                    style={{ background: SIDE[target].color }}
-                    title={`Aimed at ${target === "a" ? a.name : b.name}`}
-                  />
-                )}
-              </button>
-            ))}
+                    className="label mt-1 block !text-[8px] !tracking-normal"
+                    style={{ color: SIDE[target].color }}
+                  >
+                    {weapon.cost} → {(target === "a" ? a : b).name}
+                  </span>
+
+                  <span className="mt-0.5 block text-[9px] leading-tight text-bb-chrome">
+                    {weapon.blurb}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -472,12 +455,75 @@ export default function BattleHud({
         ) : (
           <p className="text-[11px] leading-snug text-bb-steel">
             Grounded in both bots&apos; real stat blocks and their prior-season
-            fight logs — it is not allowed to invent a number. Roasts and trash
-            talk cost the target real morale.
+            fight logs — it is not allowed to invent a number. Burns cost the
+            target real morale, and{" "}
+            <span className="text-bb-amber">a burn that cites a real stat hits for 6 more</span>{" "}
+            — receipts do damage.
           </p>
         )}
       </div>
     </section>
+  );
+}
+
+/**
+ * Where the weapons are pointed.
+ *
+ * This was two buttons side by side with a bot name on each, under the word
+ * "Aim" — which read, to everyone who met it, as *choose which bot you are
+ * playing as*. That switch does not exist during a fight, so pressing it and
+ * watching nothing change was baffling in exactly the way a control should
+ * never be.
+ *
+ * It is now a single reticle naming the one machine in the crosshairs, with an
+ * explicit swap that says where it will point instead — and it calls out
+ * friendly fire, because aiming a roast at your own bot is a legal move and a
+ * funny one, but never an accident worth having by mistake.
+ */
+function TargetLock({
+  a,
+  b,
+  target,
+  mine,
+  onSwap,
+}: {
+  a: Bot;
+  b: Bot;
+  target: Side;
+  /** The corner the player is fighting from. */
+  mine: Side;
+  onSwap: () => void;
+}) {
+  const bot = target === "a" ? a : b;
+  const other = target === "a" ? b : a;
+  const own = target === mine;
+  const accent = own ? "#f5a623" : SIDE[target].color;
+
+  return (
+    <div
+      className="flex items-center gap-2 border px-2 py-1"
+      style={{ borderColor: accent, background: `${accent}14` }}
+    >
+      <span aria-hidden className="text-xs">
+        🎯
+      </span>
+      <span className="label !text-[8px] shrink-0">Firing at</span>
+      <span className="min-w-0 flex-1 truncate">
+        <span className="display text-base" style={{ color: accent }}>
+          {bot.name}
+        </span>
+        <span className="label ml-1.5 !text-[8px]">
+          {own ? "your own bot — friendly fire" : SIDE[target].corner}
+        </span>
+      </span>
+      <button
+        onClick={onSwap}
+        className="label shrink-0 border border-bb-steel px-1.5 py-0.5 !text-[8px] transition-colors hover:bg-white/10"
+        title={`Point the weapons at ${other.name} instead`}
+      >
+        ⇄ {other.name}
+      </button>
+    </div>
   );
 }
 

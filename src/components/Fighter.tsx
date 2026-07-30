@@ -133,6 +133,8 @@ export default function Fighter({
   const morale = moraleState(feelings);
   const lvl = level(xp);
   const stopped = feelings <= 0;
+  /** Blows landed on this corner. Bumping it knocks the point cloud sideways. */
+  const hits = useArena((s) => s.hits[side]);
 
   return (
     <div
@@ -213,6 +215,10 @@ export default function Fighter({
             src={bot.image}
             accent={accent}
             damage={damage}
+            hit={hits}
+            // The blow arrives from the other corner: red is on the left, so
+            // it gets knocked left, and blue gets knocked right.
+            hitFrom={side === "a" ? -1 : 1}
             showHint
             className="absolute inset-0"
           />

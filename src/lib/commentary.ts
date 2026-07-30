@@ -173,6 +173,42 @@ export function liveVoiceExhausted(): boolean {
   return liveExhausted;
 }
 
+/**
+ * Reads a finished line aloud, with no reaction stinger in front of it.
+ *
+ * `commentate` exists for text arriving live off a stream, and it opens with a
+ * "he did NOT just say that" because something has just been said. The
+ * broadcast desk is the opposite case: considered analysis, already written,
+ * spoken in the analyst's own time. Fronting that with a gasp would be the
+ * wrong voice entirely.
+ *
+ * Long reads are split at sentence boundaries and queued, so the first sentence
+ * starts while the second is still being synthesised.
+ */
+export async function speakLine(text: string): Promise<void> {
+  const clean = text.trim();
+  if (clean.length < 8) return;
+  stopCommentary();
+  const gen = generation;
+
+  const sentences = clean.match(/[^.!?]+[.!?]*/g)?.map((s) => s.trim()) ?? [clean];
+  // Rejoin fragments too short to be worth their own request.
+  const parts: string[] = [];
+  for (const s of sentences) {
+    if (parts.length && (parts[parts.length - 1].length < MIN_SEGMENT || s.length < 12)) {
+      parts[parts.length - 1] += ` ${s}`;
+    } else {
+      parts.push(s);
+    }
+  }
+
+  for (const part of parts) {
+    const buf = await fetchLive(part);
+    if (gen !== generation) return;
+    if (buf) enqueue(buf, gen, 1);
+  }
+}
+
 /** Shortest fragment worth its own request — below this, wait for more text. */
 const MIN_SEGMENT = 45;
 

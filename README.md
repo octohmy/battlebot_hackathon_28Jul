@@ -10,17 +10,45 @@ from BattleBots' own APIs, with the sources listed in-app on `/intel`.
 ## What it does
 
 - **Top-trumps card arena** — 24 competitors as holographic cards, in **1v1 or
-  2v2 tag team**. Initiative alternates each round: whoever is on the clock
-  picks the stat to fight over, and the turn change gets a full-screen call.
+  2v2 tag team**, against the machine or hotseat against a second player.
+  Initiative alternates each round: whoever is on the clock picks the stat to
+  fight over, and the turn change gets a full-screen call.
+- **Every round is argued, not asserted** — resolving a stat takes the whole
+  screen and makes the case in order: the stat and the rule it is judged by in
+  words ("lower is deadlier"), then both numbers counting up together, then the
+  verdict — `17s BEATS 43s`, the margin, and whether that gap was a mauling or
+  razor thin — then the morale and XP it moved, quoted from the same arithmetic
+  that applied them. Nobody should have to infer a rule from the fact that 17
+  beat 43.
 - **Volumetric bot portraits** — each photo is rebuilt as a WebGL point cloud
   with real thickness (a distance transform of the alpha mask drives depth, and
   points are emitted on a front shell, a back shell and through the interior),
   so it survives a slow 360° turn instead of going paper-thin edge-on. Drag to
   orbit, throw it and it coasts, double-click to recentre.
-- **Grounded AI** (trash talk / roast / analyse / predict) — every prompt is fed
-  the two bots' real stat blocks *and* their fight-by-fight history, and is
-  forbidden from inventing figures. Spot-checked: it correctly cites things like
-  Copperhead knocking out Bloodsport in 35 seconds in episode 703.
+- **The walk-in** — a fight opens the way a fight opens: main-event card, then
+  each machine walked in from its own side with team, weapon and record, then
+  the tape read six stats head to head with any history between the two, then
+  the bookmaker's call, spoken, then the bell. Skippable in one click, because
+  the second run of a demo should not cost you eight seconds you already spent.
+- **Grounded AI, split by what it actually does** — the **arsenal** holds the
+  two moves that are fired at a machine and take real morale off it; the
+  **broadcast desk** between the corners holds the commentary, which is not a
+  weapon and is not hidden behind a button. The desk locks in a pre-fight call
+  and then reads the fight live — fed the round, the scoreline and both morale
+  readings — firing on its own when a round is taken by a mile, at the halfway
+  mark, or when a machine goes on the ropes, and waiting for the ring announcer
+  to finish before it speaks. Every prompt is fed both bots' real stat blocks
+  *and* their fight-by-fight history, and is forbidden from inventing figures.
+  Spot-checked: it correctly cites things like Copperhead knocking out
+  Bloodsport in 35 seconds in episode 703 — and **a burn that cites a real
+  number hits for 6 more**, so the one thing this app can do that a generic
+  insult generator cannot is also the thing the game rewards.
+- **The words do physical damage** — a landed burn goes into the target's point
+  cloud as an impulse, through the same integrator that handles a drag: the
+  machine blows apart, coasts away from the blow and pulls itself back
+  together. And the room is synthesised too — a brown-noise crowd bed that
+  gets louder *and* brighter as the lead grows and the damage mounts, with a
+  two-formant swell on every knockdown, knockout and landed roast.
 - **Live commentary** — a pre-voiced ElevenLabs reaction fires the instant a
   line lands ("Oh! He did not just say that!"), and the bespoke read of the
   actual sentence follows underneath it, synthesised *as it streams*. Analyse
@@ -28,9 +56,10 @@ from BattleBots' own APIs, with the sources listed in-app on `/intel`.
   instant.
 - **Bot Feelings Engine** — bots carry morale alongside combat stats, shown as a
   segmented meter with a state a commentator would call (Bouncing → Rattled →
-  On the ropes → Stopped), and a judges' scorecard scored ten-point-must.
-  Landed roasts drain it, lopsided stat losses hurt more, and hits float off the
-  card as combat text. Winning earns XP and levels.
+  On the ropes → Stopped), a judges' scorecard scored ten-point-must, and a
+  momentum bar blending the cards with the morale — because a bot can be level
+  at 2–2 and visibly going. Landed burns drain it, lopsided stat losses hurt
+  more, and hits float off the card as combat text. Winning earns XP and levels.
 - **Broadcast cuts, not page loads** — every screen change is a sports-TV
   stinger: an angled bar wipes across between pages, shutters slam shut on the
   way into a fight, and the swap happens while the screen is fully covered.
@@ -114,6 +143,7 @@ Three separate layers, for three different reasons:
 |---|---|---|
 | Interface one-shots | Kenney CC0 `.ogg` files | Clicks and thuds are generic; a sample is the right tool |
 | Broadcast stingers | Synthesised at runtime ([`lib/synth.ts`](src/lib/synth.ts)) | Whooshes, impacts, the bell, the buzzer and the fanfare have to hit the *exact* frame a wipe closes — so their timing is expressed in the same constants as the animation. Zero bytes, no licensing, and they vary slightly each play |
+| The crowd | Synthesised at runtime | A bed that has to respond continuously to game state — momentum, damage, rounds left — which a loop of crowd noise cannot do. Brown noise for the murmur, two resonant formants for the swell |
 | Voice | ElevenLabs | See below |
 
 ### The voice budget

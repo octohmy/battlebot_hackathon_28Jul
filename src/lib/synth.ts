@@ -241,6 +241,165 @@ export function fanfare(): void {
   impact(0.55);
 }
 
+// ── The crowd ─────────────────────────────────────────────────────────────
+
+/**
+ * A room full of people, synthesised.
+ *
+ * Brown noise rather than white: integrating white noise tilts the spectrum
+ * down about 6dB an octave, which is roughly what a hall full of voices heard
+ * from the floor actually looks like. White noise sounds like rain, and rain
+ * does not care who is winning.
+ *
+ * Three seconds of it, looped, so there is no audible tick — and the loop point
+ * is crossfaded by the filter's own settling rather than a click.
+ */
+let crowdNoise: AudioBuffer | null = null;
+
+function crowdBuffer(ctx: AudioContext): AudioBuffer {
+  if (crowdNoise) return crowdNoise;
+  const len = ctx.sampleRate * 3;
+  const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+  const data = buf.getChannelData(0);
+  let running = 0;
+  for (let i = 0; i < len; i++) {
+    running = (running + (Math.random() * 2 - 1) * 0.02) * 0.996;
+    data[i] = running * 8;
+  }
+  // Taper both ends into each other so the seam is inaudible.
+  const fade = Math.floor(ctx.sampleRate * 0.05);
+  for (let i = 0; i < fade; i++) {
+    const t = i / fade;
+    data[i] *= t;
+    data[len - 1 - i] *= t;
+  }
+  crowdNoise = buf;
+  return buf;
+}
+
+interface Crowd {
+  src: AudioBufferSourceNode;
+  tone: BiquadFilterNode;
+  gain: GainNode;
+}
+let crowd: Crowd | null = null;
+
+/**
+ * Opens the house. Idempotent — calling it twice does not stack two crowds on
+ * top of each other, which is how a stadium turns into a jet engine.
+ */
+export function startCrowd(): void {
+  if (crowd) return;
+  const g = begin();
+  if (!g) return;
+  const { ctx, t } = g;
+
+  const src = ctx.createBufferSource();
+  src.buffer = crowdBuffer(ctx);
+  src.loop = true;
+
+  const tone = ctx.createBiquadFilter();
+  tone.type = "lowpass";
+  tone.frequency.setValueAtTime(600, t);
+  tone.Q.value = 0.6;
+
+  const gain = ctx.createGain();
+  gain.gain.setValueAtTime(0.0001, t);
+  gain.gain.exponentialRampToValueAtTime(0.03, t + 1.4);
+
+  src.connect(tone).connect(gain).connect(ctx.destination);
+  src.start(t);
+  crowd = { src, tone, gain };
+}
+
+/**
+ * How invested the room is, 0→1.
+ *
+ * Drives loudness *and* brightness together, because a crowd getting into it
+ * does not simply get louder — it gets sharper, as murmur turns into voices.
+ */
+export function setCrowdLevel(level: number): void {
+  if (!crowd) return;
+  const ctx = audioContext();
+  if (!ctx) return;
+  const v = Math.max(0, Math.min(1, level));
+  const target = isMuted() ? 0.0001 : 0.022 + v * 0.075;
+  const t = ctx.currentTime;
+  crowd.gain.gain.cancelScheduledValues(t);
+  crowd.gain.gain.setValueAtTime(Math.max(0.0001, crowd.gain.gain.value), t);
+  crowd.gain.gain.exponentialRampToValueAtTime(target, t + 1.2);
+  crowd.tone.frequency.cancelScheduledValues(t);
+  crowd.tone.frequency.exponentialRampToValueAtTime(520 + v * 1500, t + 1.2);
+}
+
+/**
+ * The room reacting: a swell on top of the bed.
+ *
+ * Two resonant bands around 520Hz and 1150Hz — roughly an "ooh" — so it reads
+ * as people rather than as noise getting briefly louder.
+ */
+export function crowdPop(level = 1): void {
+  const g = begin();
+  if (!g) return;
+  const { ctx, t } = g;
+  const dur = 0.7 + level * 0.9;
+
+  const src = ctx.createBufferSource();
+  src.buffer = crowdBuffer(ctx);
+  src.loop = true;
+  // Start somewhere random in the bed so two pops are never the same swell.
+  const offset = Math.random() * 2.5;
+
+  const out = ctx.createGain();
+  out.gain.setValueAtTime(0.0001, t);
+  out.gain.exponentialRampToValueAtTime(0.05 + level * 0.09, t + 0.14);
+  out.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  out.connect(ctx.destination);
+
+  for (const [freq, q, amp] of [
+    [520, 5, 1],
+    [1150, 7, 0.6],
+  ] as const) {
+    const band = ctx.createBiquadFilter();
+    band.type = "bandpass";
+    band.frequency.setValueAtTime(freq * 0.85, t);
+    // A rising formant is what makes a swell sound like it is building.
+    band.frequency.exponentialRampToValueAtTime(freq * 1.15, t + dur * 0.4);
+    band.Q.value = q;
+    const bg = ctx.createGain();
+    bg.gain.value = amp;
+    src.connect(band).connect(bg).connect(out);
+  }
+
+  src.start(t, offset);
+  src.stop(t + dur + 0.1);
+}
+
+/** Empties the building. */
+export function stopCrowd(ms = 800): void {
+  const c = crowd;
+  if (!c) return;
+  crowd = null;
+  const ctx = audioContext();
+  if (!ctx) {
+    try {
+      c.src.stop();
+    } catch {
+      /* never started */
+    }
+    return;
+  }
+  const t = ctx.currentTime;
+  c.gain.gain.cancelScheduledValues(t);
+  c.gain.gain.setValueAtTime(Math.max(0.0001, c.gain.gain.value), t);
+  c.gain.gain.exponentialRampToValueAtTime(0.0001, t + ms / 1000);
+  try {
+    c.src.stop(t + ms / 1000 + 0.05);
+  } catch {
+    /* never started */
+  }
+}
+
 /** Short ascending arpeggio — a bot levelling up. */
 export function levelUp(): void {
   const g = begin();

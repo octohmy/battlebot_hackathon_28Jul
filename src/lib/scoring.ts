@@ -201,6 +201,22 @@ export interface DuelResult {
   margin: number;
 }
 
+/**
+ * How lopsided a round was, 0→1, normalised against the winning value so
+ * 90-vs-10 reads as a mauling and 51-vs-49 does not.
+ *
+ * One definition because three separate things hang off it — the morale hit,
+ * the XP award, and whether the judges score it 10-8 — and they must agree
+ * about what "dominant" means or the receipts contradict each other.
+ */
+export function severityOf(result: DuelResult): number {
+  const hi = Math.max(result.aValue ?? 0, result.bValue ?? 0) || 1;
+  return Math.min(1, result.margin / hi);
+}
+
+/** Above this severity a round is a mauling: a 10-8 card, and a bigger hit. */
+export const DOMINANT = 0.4;
+
 export function resolveTrump(stat: TrumpStat, a: Bot, b: Bot): DuelResult {
   const av = stat.get(a);
   const bv = stat.get(b);
