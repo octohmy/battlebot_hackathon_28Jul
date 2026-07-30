@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useMemo } from "react";
 import type { Bot } from "@/lib/bbpl/client";
 import { SIDE } from "@/lib/theme";
+import { voicesFor } from "@/lib/voices";
 import {
   level,
   levelProgress,
@@ -106,6 +107,7 @@ function Meter({
 export default function Fighter({
   side,
   bot,
+  opponent,
   bench,
   feelings,
   benchFeelings,
@@ -118,6 +120,8 @@ export default function Fighter({
 }: {
   side: Side;
   bot: Bot;
+  /** The other corner, needed only to work out who sounds like whom. */
+  opponent: Bot;
   bench: Bot | null;
   feelings: number;
   benchFeelings: number;
@@ -135,6 +139,15 @@ export default function Fighter({
   const stopped = feelings <= 0;
   /** Blows landed on this corner. Bumping it knocks the point cloud sideways. */
   const hits = useArena((s) => s.hits[side]);
+  // Named on the card, because "these two sound different" is only obvious
+  // once you can see that it was meant.
+  const voice = useMemo(
+    () =>
+      side === "a"
+        ? voicesFor(bot.slug, opponent.slug).a
+        : voicesFor(opponent.slug, bot.slug).b,
+    [side, bot.slug, opponent.slug],
+  );
 
   return (
     <div
@@ -182,12 +195,21 @@ export default function Fighter({
               {bot.name}
             </h2>
           </div>
-          <span
-            className="stencil shrink-0 border px-1.5 text-sm leading-tight"
-            style={{ borderColor: `${accent}66`, color: accent }}
-            title={`${xp} XP earned this duel`}
-          >
-            LV {lvl}
+          <span className="flex shrink-0 items-center gap-1.5">
+            <span
+              className="label !text-[8px] !tracking-normal"
+              style={{ color: accent }}
+              title={`This machine speaks in the "${voice.name}" voice — ${voice.character.toLowerCase()}. Each bot gets its own.`}
+            >
+              🔊 {voice.name}
+            </span>
+            <span
+              className="stencil border px-1.5 text-sm leading-tight"
+              style={{ borderColor: `${accent}66`, color: accent }}
+              title={`${xp} XP earned this duel`}
+            >
+              LV {lvl}
+            </span>
           </span>
         </header>
 

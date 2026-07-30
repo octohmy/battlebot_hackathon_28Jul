@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { NextRequest } from "next/server";
+import { isKnownVoice } from "@/lib/voices";
 
 /**
  * Live ElevenLabs read-out of a line the AI just wrote.
@@ -139,7 +140,7 @@ export async function POST(req: NextRequest) {
     return Response.json({ error: "Slow down a moment." }, { status: 429 });
   }
 
-  let body: { text?: string };
+  let body: { text?: string; voice?: string };
   try {
     body = await req.json();
   } catch {
@@ -151,7 +152,14 @@ export async function POST(req: NextRequest) {
     return Response.json({ error: "Nothing to say" }, { status: 400 });
   }
 
-  const hash = createHash("sha1").update(`${voice}:${text}`).digest("hex").slice(0, 24);
+  // Each bot speaks in its own voice, but only from the pool this app knows
+  // about. An arbitrary id off the wire would let a caller bill the account
+  // for any voice on it, so an unrecognised one falls back rather than being
+  // passed through.
+  const chosen =
+    typeof body.voice === "string" && isKnownVoice(body.voice) ? body.voice : voice;
+
+  const hash = createHash("sha1").update(`${chosen}:${text}`).digest("hex").slice(0, 24);
 
   const cached = await fromCache(hash);
   if (cached) return audio(cached, { "X-Tts-Cache": "hit" });
@@ -167,7 +175,7 @@ export async function POST(req: NextRequest) {
   let res: Response;
   try {
     res = await fetch(
-      `https://api.elevenlabs.io/v1/text-to-speech/${voice}?output_format=mp3_44100_64`,
+      `https://api.elevenlabs.io/v1/text-to-speech/${chosen}?output_format=mp3_44100_64`,
       {
         method: "POST",
         headers: { "xi-api-key": key, "Content-Type": "application/json" },

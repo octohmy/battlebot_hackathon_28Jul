@@ -6,6 +6,7 @@ import { prefetchLine, speakLine } from "@/lib/commentary";
 import { DOMINANT, severityOf } from "@/lib/scoring";
 import { SIDE } from "@/lib/theme";
 import { MAX_FEELINGS, MAX_ROUNDS, scoreboard, useArena } from "@/lib/store";
+import { DESK_VOICE } from "@/lib/voices";
 
 /**
  * The commentary box.
@@ -100,7 +101,7 @@ export default function BroadcastDesk({
         if (ctl.signal.aborted || text.length < 12) return;
         useArena.getState().setDesk({ call: text });
         // Warm the voice: the walk-in is going to ask for this in a few seconds.
-        prefetchLine(text);
+        prefetchLine(text, DESK_VOICE);
       } catch {
         // No call is a quiet failure — the box just shows the fight instead.
       }
@@ -158,7 +159,7 @@ export default function BroadcastDesk({
           // and the bespoke voice is metered, so an automatic read that costs
           // half as much survives twice as many fights before it degrades to
           // subtitles. The whole read is still there on ▶ Play.
-          void speakLine(headline(acc));
+          void speakLine(headline(acc), DESK_VOICE);
         }
       } catch (e) {
         if ((e as Error).name !== "AbortError") setDesk({ loading: false });
@@ -275,7 +276,7 @@ function SpeakButton({
     <button
       onClick={() => {
         onSubtitle(text);
-        void speakLine(text);
+        void speakLine(text, DESK_VOICE);
       }}
       className="label shrink-0 !text-[8px] text-bb-steel transition-colors hover:text-bb-bone"
       title="Hear this again"

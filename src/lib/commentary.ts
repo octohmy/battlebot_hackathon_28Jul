@@ -2,6 +2,8 @@
 
 import bank from "@/data/stingers.json";
 import { audioContext, isMuted } from "@/lib/audio";
+import { cancelBrowserSpeech, speakBrowser } from "@/lib/speech";
+import { FIGHTER_VOICES, type FighterVoice } from "@/lib/voices";
 
 /**
  * Live commentary: the ringside voice reacting to what the AI just said.
@@ -70,6 +72,7 @@ async function decodeUrl(url: string): Promise<AudioBuffer | null> {
 export function stopCommentary(): void {
   generation++;
   queueEndsAt = 0;
+  cancelBrowserSpeech();
   for (const s of playing) {
     try {
       s.stop();
@@ -131,9 +134,15 @@ export async function playStinger(group: Stinger, { cut = true } = {}): Promise<
   return clip.text;
 }
 
-/** Requests a bespoke read, sharing one request between prefetch and playback. */
-function fetchLive(text: string): Promise<AudioBuffer | null> {
-  const key = text.trim();
+/**
+ * Requests a bespoke read, sharing one request between prefetch and playback.
+ *
+ * Keyed on voice *and* text: the same sentence in two different fighters'
+ * voices is two different clips, and collapsing them would have Copperhead
+ * answering in Bloodsport's voice out of a cache hit.
+ */
+function fetchLive(text: string, voice?: FighterVoice): Promise<AudioBuffer | null> {
+  const key = `${voice?.id ?? "default"}|${text.trim()}`;
   const existing = live.get(key);
   if (existing) return existing;
 
@@ -145,7 +154,7 @@ function fetchLive(text: string): Promise<AudioBuffer | null> {
       const res = await fetch("/api/say", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: key }),
+        body: JSON.stringify({ text: text.trim(), voice: voice?.id }),
       });
       if (res.status === 402) {
         // Budget gone for the rest of the session — stop asking.
@@ -164,13 +173,48 @@ function fetchLive(text: string): Promise<AudioBuffer | null> {
 }
 
 /** Warms a read we expect to want shortly. Safe to call speculatively. */
-export function prefetchLine(text: string): void {
+export function prefetchLine(text: string, voice?: FighterVoice): void {
   const clean = text.trim();
-  if (clean.length > 8 && !liveExhausted) void fetchLive(clean);
+  if (clean.length > 8 && !liveExhausted) void fetchLive(clean, voice);
 }
 
 export function liveVoiceExhausted(): boolean {
   return liveExhausted;
+}
+
+/** Milliseconds until the Web Audio queue is empty — when the room goes quiet. */
+function queueFreeInMs(): number {
+  const c = ctx();
+  if (!c) return 0;
+  return Math.max(0, (queueEndsAt - c.currentTime) * 1000);
+}
+
+/**
+ * Says one segment in a given voice, by whichever engine can.
+ *
+ * ElevenLabs first, because it sounds like a person. The browser's own
+ * synthesiser second, because it is free and always there — and a robot
+ * insulting another robot out loud in a slightly wooden voice is enormously
+ * better than the same insult rendered as small grey text, which is what the
+ * budget running out used to mean.
+ *
+ * The fallback is delayed until the Web Audio queue drains, since the two
+ * engines share no clock and would otherwise talk over the stinger.
+ */
+async function say(
+  segment: string,
+  voice: FighterVoice | undefined,
+  gen: number,
+): Promise<void> {
+  const buf = await fetchLive(segment, voice);
+  if (gen !== generation) return;
+  if (buf) {
+    enqueue(buf, gen, 1);
+    return;
+  }
+  if (!voice) return;
+  const ordinal = Math.max(0, FIGHTER_VOICES.findIndex((v) => v.id === voice.id));
+  await speakBrowser(voice, segment, { ordinal, delayMs: queueFreeInMs() });
 }
 
 /**
@@ -185,7 +229,7 @@ export function liveVoiceExhausted(): boolean {
  * Long reads are split at sentence boundaries and queued, so the first sentence
  * starts while the second is still being synthesised.
  */
-export async function speakLine(text: string): Promise<void> {
+export async function speakLine(text: string, voice?: FighterVoice): Promise<void> {
   const clean = text.trim();
   if (clean.length < 8) return;
   stopCommentary();
@@ -203,9 +247,8 @@ export async function speakLine(text: string): Promise<void> {
   }
 
   for (const part of parts) {
-    const buf = await fetchLive(part);
     if (gen !== generation) return;
-    if (buf) enqueue(buf, gen, 1);
+    await say(part, voice, gen);
   }
 }
 
@@ -221,6 +264,8 @@ const MIN_SEGMENT = 45;
 export async function commentate(
   group: Stinger,
   stream: (onText: (accumulated: string) => void) => Promise<string>,
+  /** Whose mouth this is coming out of. Omit for the house voice. */
+  voice?: FighterVoice,
 ): Promise<{ stinger: string; spoken: string }> {
   stopCommentary();
   const gen = generation;
@@ -232,10 +277,18 @@ export async function commentate(
   const speak = (segment: string) => {
     const text = segment.trim();
     if (text.length < 4) return;
-    const pending = fetchLive(text);
+    // The request goes out now, on the stream; playback waits its turn in the
+    // chain — so a second sentence is already being synthesised while the
+    // first is still being spoken.
+    const pending = fetchLive(text, voice);
     chain = chain.then(async () => {
       const buf = await pending;
-      if (buf && gen === generation) enqueue(buf, gen, 1);
+      if (gen !== generation) return;
+      if (buf) {
+        enqueue(buf, gen, 1);
+        return;
+      }
+      await say(text, voice, gen);
     });
   };
 

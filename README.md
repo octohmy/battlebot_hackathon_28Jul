@@ -146,18 +146,43 @@ Three separate layers, for three different reasons:
 | The crowd | Synthesised at runtime | A bed that has to respond continuously to game state — momentum, damage, rounds left — which a loop of crowd noise cannot do. Brown noise for the murmur, two resonant formants for the swell |
 | Voice | ElevenLabs | See below |
 
+### Every bot has its own voice
+
+A fight has two mouths in it. Running both through one voice made the trash
+talk read as a narrator describing an argument rather than as two robots
+having one — so each bot is assigned a voice from a pool of eight
+([`lib/voices.ts`](src/lib/voices.ts)), hashed off its slug so Copperhead
+sounds like Copperhead in every fight it ever appears in, and the two corners
+are always given different ones. The analyst at the desk is deliberately
+outside that pool: it is the one voice in the room not in the fight.
+
+The voice is the *aggressor's*, not the target's — a roast aimed at the blue
+corner comes out of the red corner's mouth. Whose voice is whose is named on
+each nameplate.
+
 ### The voice budget
 
-ElevenLabs is metered, so the voice is layered to stay inside a free tier:
+ElevenLabs is metered, so the voice is layered — and every layer below the
+first is free:
 
 - **Pre-generated banks** cover everything reusable — bot names, factual
   nuggets, connectives, and the reaction stingers. Zero latency, zero runtime
   cost, works offline.
 - **`/api/say`** covers the one thing a bank cannot: reading a sentence the AI
-  wrote two seconds ago. Every read is cached to disk by exact text, so demoing
-  the same matchup twice costs once, and the route holds a character reserve
-  back and refuses below it — the voice degrades to the bank mid-show rather
-  than erroring out on stage.
+  wrote two seconds ago, in that bot's voice. Cached to disk by voice *and*
+  exact text, so demoing the same matchup twice costs once. The route holds a
+  character reserve back and refuses below it, and validates the requested
+  voice against the known pool so a caller cannot bill the account for an
+  arbitrary one.
+- **The browser's own speech synthesis**, when the balance is gone. This is the
+  layer that matters most on a hack night: a spent ElevenLabs tier does not
+  error, it just quietly stops sounding like a person, and the trash talk
+  becomes small grey text — the least interesting possible version of a robot
+  insulting another robot. So the fight keeps talking, free and offline, and
+  each bot *still* gets a distinct voice: a different system voice where the
+  machine has more than one, shaped by per-bot pitch and rate so they differ
+  even where it does not. A chip in the top bar says which engine is live, so
+  you find that out before you are on stage rather than during.
 
 ### Why snapshot-first?
 

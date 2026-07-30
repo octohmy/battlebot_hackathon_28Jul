@@ -25,6 +25,7 @@ import {
   stopAnnouncer,
 } from "@/lib/announcer";
 import { play, setMuted, unlockAudio } from "@/lib/audio";
+import { cancelBrowserSpeech, primeSpeech } from "@/lib/speech";
 import { cut } from "@/lib/broadcast";
 import { playStinger, stopCommentary } from "@/lib/commentary";
 import {
@@ -196,6 +197,9 @@ export default function Arena({
   useEffect(() => {
     if (phase !== "reveal" || !a || !b) return;
     play("reveal");
+    // Chrome populates the speech-synthesis voice list asynchronously, so the
+    // fallback voice is warmed here rather than discovered mid-insult.
+    primeSpeech();
     startCrowd();
     setCrowdLevel(0.35);
     void announceMatchup(a.slug, a.name, b.slug, b.name).then(setSubtitle);
@@ -518,6 +522,7 @@ export default function Arena({
         <Fighter
           side="a"
           bot={a}
+          opponent={b}
           bench={benchBot(state, "a")}
           feelings={feelings[a.slug] ?? MAX_FEELINGS}
           benchFeelings={feelings[benchBot(state, "a")?.slug ?? ""] ?? MAX_FEELINGS}
@@ -579,6 +584,7 @@ export default function Arena({
         <Fighter
           side="b"
           bot={b}
+          opponent={a}
           bench={benchBot(state, "b")}
           feelings={feelings[b.slug] ?? MAX_FEELINGS}
           benchFeelings={feelings[benchBot(state, "b")?.slug ?? ""] ?? MAX_FEELINGS}
@@ -765,6 +771,54 @@ function Choice<T extends string>({
   );
 }
 
+/**
+ * Which voice engine is actually going to speak.
+ *
+ * Worth surfacing because the failure is otherwise invisible: a spent
+ * ElevenLabs balance does not error, it just quietly stops sounding like a
+ * person, and finding that out in front of an audience is the wrong time. The
+ * fallback is not a fault — the fight still talks, in the machine's own
+ * voices — so this states which one you are on rather than warning about it.
+ */
+function VoiceStatus() {
+  const [budget, setBudget] = useState<{ available: boolean; left: number | null } | null>(
+    null,
+  );
+
+  useEffect(() => {
+    let live = true;
+    fetch("/api/say")
+      .then((r) => r.json())
+      .then((d) => {
+        if (live) setBudget(d);
+      })
+      .catch(() => {});
+    return () => {
+      live = false;
+    };
+  }, []);
+
+  if (!budget) return null;
+  const studio = budget.available;
+
+  return (
+    <span
+      className="label !text-[9px]"
+      title={
+        studio
+          ? `Studio voice on: bespoke ElevenLabs reads, ${budget.left ?? "?"} characters left. Each bot has its own voice.`
+          : "ElevenLabs budget spent — the fight is speaking through the browser's own voices instead. Each bot still gets its own; the pre-voiced announcer and reactions are unaffected."
+      }
+    >
+      <span
+        className="mr-1.5 inline-block h-2 w-2 rounded-full align-middle"
+        style={{ background: studio ? "#33d17a" : "#f5a623" }}
+      />
+      {studio ? `Studio voice · ${budget.left ?? "?"}` : "System voices"}
+    </span>
+  );
+}
+
 function UnavailableNote({ a, b }: { a: Bot; b: Bot }) {
   const missing = TRUMP_STATS.filter((s) => !isTrumpable(s, a, b));
   if (!missing.length) return null;
@@ -809,6 +863,7 @@ function TopBar({ source, onQuit }: { source: DataSource; onQuit?: () => void })
             // has to reach in and stop it, not merely stop starting it.
             if (next) {
               stopCrowd(300);
+              cancelBrowserSpeech();
             } else {
               unlockAudio();
               play("click");
@@ -828,6 +883,7 @@ function TopBar({ source, onQuit }: { source: DataSource; onQuit?: () => void })
         >
           {muted ? "🔇 Sound off" : "🔊 Sound on"}
         </button>
+        <VoiceStatus />
         <span
           className="label !text-[9px]"
           title={

@@ -9,6 +9,7 @@ import { bell, crowdPop, riser, whoosh } from "@/lib/synth";
 import { isTrumpable, TRUMP_STATS } from "@/lib/scoring";
 import { SIDE } from "@/lib/theme";
 import { useArena, type Side } from "@/lib/store";
+import { DESK_VOICE } from "@/lib/voices";
 
 /**
  * The walk-in.
@@ -74,7 +75,7 @@ export default function WalkIn({
   // where a pre-fight prediction belongs.
   useEffect(() => {
     if (beat !== 4 || !call) return;
-    void speakLine(call);
+    void speakLine(call, DESK_VOICE);
   }, [beat, call]);
 
   if (done) return null;

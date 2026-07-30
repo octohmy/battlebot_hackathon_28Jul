@@ -1,12 +1,13 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import type { Bot } from "@/lib/bbpl/client";
 import { commentate, playStinger } from "@/lib/commentary";
 import { play, unlockAudio } from "@/lib/audio";
 import { crowdPop, impact } from "@/lib/synth";
 import { isTrumpable, TRUMP_BY_KEY, TRUMP_STATS, type TrumpKey } from "@/lib/scoring";
 import { SIDE } from "@/lib/theme";
+import { voicesFor } from "@/lib/voices";
 import { burnDamage, useArena, type AiMode, type Side } from "@/lib/store";
 
 /**
@@ -97,6 +98,9 @@ export default function BattleHud({
   const [target, setTarget] = useState<Side>("b");
   const abort = useRef<AbortController | null>(null);
 
+  /** Who each machine sounds like. Stable for a given pairing. */
+  const voices = useMemo(() => voicesFor(a.slug, b.slug), [a.slug, b.slug]);
+
   const playerTurn = phase === "choose-stat" && (turn === "a" || !autoOpponent);
 
   /**
@@ -121,6 +125,10 @@ export default function BattleHud({
       abort.current = ctl;
 
       const aimedAt = target;
+      // Trash talk is spoken *by* the other corner, at this one — so the voice
+      // is the aggressor's, not the target's. Getting that backwards would
+      // have each machine narrating the insults being thrown at it.
+      const speaker = voices[aimedAt === "a" ? "b" : "a"];
       setAi({ aiMode: mode, aiLoading: true, aiText: "", aiTarget: aimedAt });
 
       /**
@@ -146,7 +154,9 @@ export default function BattleHud({
       };
 
       try {
-        const { stinger: said, spoken } = await commentate("burn", async (onText) => {
+        const { stinger: said, spoken } = await commentate(
+          "burn",
+          async (onText) => {
           const res = await fetch("/api/ai", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -179,8 +189,10 @@ export default function BattleHud({
             setAi({ aiText: acc });
             onText(acc);
           }
-          return acc;
-        });
+            return acc;
+          },
+          speaker,
+        );
 
         onSubtitle(said);
         setAi({ aiLoading: false });
@@ -191,7 +203,19 @@ export default function BattleHud({
         }
       }
     },
-    [a, b, activeStat, target, setAi, shove, hurtFeelings, awardXp, bumpDamage, onSubtitle],
+    [
+      a,
+      b,
+      activeStat,
+      target,
+      voices,
+      setAi,
+      shove,
+      hurtFeelings,
+      awardXp,
+      bumpDamage,
+      onSubtitle,
+    ],
   );
 
   const onPlayStat = (key: TrumpKey) => {
